@@ -5,9 +5,20 @@ using UnityEngine;
 public class GameManager : MonoBehaviour {
 
     public LineManager lr;
+    public GameObject prefabPoint;
+    public Vector2[] pointPositions;
 
-	// Use this for initialization
-	void Start () {
+    private List<GameObject> listPoints;
+
+    // Use this for initialization
+    void Start () {
+        listPoints = new List<GameObject>();
+        for (int i =0; i < pointPositions.Length; i++)
+        {
+            GameObject newPoint = Instantiate(prefabPoint);
+            newPoint.transform.SetPositionAndRotation(pointPositions[i], Quaternion.identity);
+            listPoints.Add(newPoint);
+        }
 		
 	}
 	

@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class Cylinder : MonoBehaviour {
 
+    public GameObject parent;
+
 	// Use this for initialization
 	void Start () {
-		
-	}
+
+    }
 
     public void ChangeColor()
     {
         var couleur = gameObject.GetComponent<Renderer>();
-        Debug.Log("test");
         if (couleur.material.color == Color.green)
         {
             couleur.material.color = Color.red;
