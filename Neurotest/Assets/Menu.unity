@@ -499,7 +499,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 100373816}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1802188444}
+        m_MethodName: LogInButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &100373816
@@ -1496,7 +1507,7 @@ GameObject:
   - component: {fileID: 553265230}
   - component: {fileID: 553265229}
   m_Layer: 5
-  m_Name: InputField
+  m_Name: InputFieldPassword
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2228,7 +2239,7 @@ GameObject:
   - component: {fileID: 874981115}
   - component: {fileID: 874981114}
   m_Layer: 5
-  m_Name: InputField
+  m_Name: InputFieldPassword
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2518,7 +2529,7 @@ GameObject:
   - component: {fileID: 919282333}
   - component: {fileID: 919282332}
   m_Layer: 5
-  m_Name: InputField
+  m_Name: InputFieldUsername
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2690,8 +2701,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecc25bc93a1dbdb408aa4f1106323e08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  username: {fileID: 1583403307}
-  password: {fileID: 55695715}
+  username: {fileID: 919282332}
+  password: {fileID: 874981114}
 --- !u!1 &995913697
 GameObject:
   m_ObjectHideFlags: 0
@@ -4099,7 +4110,7 @@ GameObject:
   - component: {fileID: 1760159528}
   - component: {fileID: 1760159527}
   m_Layer: 5
-  m_Name: InputField
+  m_Name: InputFieldUsername
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4345,6 +4356,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f28ffb3d733f9f42bddfb5cea919333, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  username: {fileID: 1760159527}
+  password: {fileID: 553265229}
 --- !u!1 &1860603146
 GameObject:
   m_ObjectHideFlags: 0
