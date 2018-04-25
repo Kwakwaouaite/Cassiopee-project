@@ -8,66 +8,36 @@ using System.Text.RegularExpressions;
 public class SignIn : MonoBehaviour {
 
 	public InputField username;
-	public InputField password;
 
 	private string usernamestring;
-	private string passwordstring;
 
-	private string form;
+    public GameObject signin;
+    public GameObject secondmenu;
 
+    public GameObject popup2;
+    public GameObject popup3;
 
-	public void SignInButton() {
-		bool UN = false;
-		bool PW = false;
+    public void SignInButton() {
         
 		if (usernamestring != "") {
-			if (!System.IO.File.Exists(@"C:/Dev/Cassiopee-project/Neurotest/Assets/Users/" + usernamestring + "/")) {
-				UN = true;
-                print("Le nom est "+usernamestring);
-			} else {
-				Debug.LogWarning("Username Taken");
-			}
-		} else {
-				Debug.LogWarning("Username field empty");
-		}
+			if (!System.IO.Directory.Exists(@"C:/Dev/Cassiopee-project/Neurotest/Assets/Users/" + usernamestring + "/")) {
+                System.IO.Directory.CreateDirectory(@"C:/Dev/Cassiopee-project/Neurotest/Assets/Users/" + usernamestring + "/");
+                username.text = "";
+                signin.SetActive(false);
+                secondmenu.SetActive(true);
+            }
+            else {
+                popup3.SetActive(true);
+                username.text = "";
+            }
+        } else {
+            popup2.SetActive(true);
+        }
 
-		if (passwordstring != "") {
-			if (passwordstring.Length > 5) {
-					PW = true;
-			} else {
-					Debug.LogWarning("Password must be at least a 6 characters long");
-			}
-		} else {
-				Debug.LogWarning("Password field empty");
-		}
-
-		if (UN == true && PW == true) {
-			bool Clear = true;
-			int i = 1;
-			foreach(char c in passwordstring) {
-				if (Clear) {
-                    passwordstring = "";
-					Clear = false;
-				}
-				i++;
-				char Encrypted = (char)(c * i);
-                passwordstring += Encrypted.ToString();
-			}
-			form = (usernamestring + Environment.NewLine+ passwordstring);
-            System.IO.Directory.CreateDirectory(@"C:/Dev/Cassiopee-project/Neurotest/Assets/Users/" + usernamestring + "/");
-            System.IO.File.WriteAllText(@"C:/Dev/Cassiopee-project/Neurotest/Assets/Users/"+ usernamestring + "/" + usernamestring +".txt", form);
-            //username.GetComponentsInChildren<Text>().Set("");
-            //password.GetComponentsInChildren<Text>().Set("");
-            print(usernamestring);
-
-            print("Register Okay");
-		}
-
-	}
+    }
 
 	// Update is called once per frame
 	void Update () {
         usernamestring = username.text;
-        passwordstring = password.text;
 	}
 }
