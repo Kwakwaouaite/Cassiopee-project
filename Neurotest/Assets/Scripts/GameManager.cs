@@ -7,18 +7,17 @@ public class GameManager : MonoBehaviour {
     public LineManager lr;
     public GameObject prefabPoint;
     public Vector2[] pointPositions;
+    public float size;
+    public bool isDetectHit;
 
     private List<GameObject> listPoints;
+    private long current;
 
     // Use this for initialization
     void Start () {
-        listPoints = new List<GameObject>();
-        for (int i =0; i < pointPositions.Length; i++)
-        {
-            GameObject newPoint = Instantiate(prefabPoint);
-            newPoint.transform.SetPositionAndRotation(pointPositions[i], Quaternion.identity);
-            listPoints.Add(newPoint);
-        }
+
+        generatePointList();
+        current = 0;
 		
 	}
 	
@@ -26,30 +25,46 @@ public class GameManager : MonoBehaviour {
 	void Update () {
         if (Input.touchCount > 0)
         {
-            RaycastHit hit;
-            Vector3 pos = Camera.main.ScreenToWorldPoint(new Vector3(Input.GetTouch(0).position[0], Input.GetTouch(0).position[1], 10));
             
-            if (Physics.Raycast(pos, Vector3.back, out hit, 10))
-            {
-                Debug.Log("hit !");
+            Vector3 pos = Camera.main.ScreenToWorldPoint(new Vector3(Input.GetTouch(0).position[0], Input.GetTouch(0).position[1], 10));
+            if (isDetectHit)
+            { 
+                RaycastHit hit;
+                if (Physics.Raycast(pos, Vector3.back, out hit, 10))
+                {
+                    Debug.Log("hit !");
+
+                    Transform game = hit.collider.transform;
+
+                    Debug.Log(game.parent.name);
+
+                    Debug.Log(hit.transform.position);
+                    if (game.parent.name == "Point " + current.ToString())
+                    {
+                        game.GetComponent<Renderer>().material.color = Color.green;
+                        current++;
+                    }
+                    Debug.DrawRay(pos, Vector3.back * 10);
+                }
                 
-                Debug.Log(hit.transform.position);
-                GameObject game = hit.collider.gameObject;
-                game.GetComponent<Renderer>().material.color = Color.green;
+                
                 
             }
-
-            Debug.Log(Input.GetTouch(0).position);
-
-            //lr.AddPoint(1.0f, 2.0f);
             lr.AddPoint(pos.x, pos.y);
-            /*
-            Debug.Log("---------");
-            Debug.Log(Input.GetTouch(0).position);
-            Debug.Log(Camera.main.ScreenToWorldPoint(new Vector3(Input.GetTouch(0).position[0], Input.GetTouch(0).position[1], 10)));
-            */
-
-            Debug.DrawRay(pos, Vector3.back * 10);
+            
         }
 	}
+
+    private void generatePointList()
+    {
+        listPoints = new List<GameObject>();
+        for (int i = 0; i < pointPositions.Length; i++)
+        {
+            GameObject newPoint = Instantiate(prefabPoint);
+            newPoint.transform.SetPositionAndRotation(new Vector3(pointPositions[i].x, pointPositions[i].y, -20), Quaternion.identity);
+            newPoint.name = "Point " + i.ToString();
+            newPoint.SetActive(true);
+            listPoints.Add(newPoint);
+        }
+    }
 }

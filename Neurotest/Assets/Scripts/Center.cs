@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Cylinder : MonoBehaviour {
+
+public class Center : MonoBehaviour {
 
     public GameObject parent;
 
 	// Use this for initialization
 	void Start () {
-
     }
 
     public void ChangeColor()
@@ -26,5 +26,10 @@ public class Cylinder : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
+    }
+
+    public GameObject getParent()
+    {
+        return parent;
     }
 }
