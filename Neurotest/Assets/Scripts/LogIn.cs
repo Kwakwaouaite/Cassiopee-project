@@ -23,9 +23,13 @@ public class LogIn : MonoBehaviour {
         if (usernamestring != "")
         {
             if (System.IO.Directory.Exists(@"C:/Dev/Cassiopee-project/Neurotest/Assets/Users/" + usernamestring + "/")) {
+                PlayerPrefs.SetString("current_player", usernamestring);
+
                 username.text = "";
-                print("LogIn Okay");
-                Launch(usernamestring);
+
+                login.SetActive(false);
+                secondmenu.SetActive(true);
+
             }
             else {
                 popup.SetActive(true);
@@ -37,13 +41,6 @@ public class LogIn : MonoBehaviour {
         }
     }
 
-    public void Launch(String usernamestring)
-    {
-        login.SetActive(false);
-        secondmenu.SetActive(true);
-
-
-    }
 
 
     public void Keyboard()
