@@ -48,14 +48,13 @@ public class GameManager : MonoBehaviour {
     private void generateLevelData()
     {
         Vector3 screenSize = Camera.main.ScreenToWorldPoint(new Vector3(Camera.main.pixelHeight, Camera.main.pixelWidth));
-        Debug.Log(screenSize[0]);
-        Debug.Log(screenSize[1]);
+        //Debug.Log(screenSize[0]);
+        //Debug.Log(screenSize[1]);
 
         int height = (int)screenSize[0];
         int width = (int)screenSize[1];
 
         //pointNumber = (int)Random.Range(5, 15);
-        Debug.Log(pointNumber);
         for (int i=0; i < pointPositions.Length; i++)
         {
             pointPositions[i][0] = (int)Random.Range(10, width - 10);
@@ -78,6 +77,8 @@ public class GameManager : MonoBehaviour {
         {
             GameObject newPoint = Instantiate(prefabPoint);
             newPoint.transform.SetPositionAndRotation(new Vector3(pointPositions[i].x, pointPositions[i].y, -20), Quaternion.identity);
+            newPoint.transform.localScale = new Vector3(size, size, size);
+            Debug.Log(newPoint.transform.localScale);  
             if (difficulty == "easy")
             {
                 newPoint.name = "Point " + i.ToString();
