@@ -130,7 +130,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!23 &58238612
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -370,6 +370,10 @@ MonoBehaviour:
   - {x: 10, y: 290}
   - {x: 32, y: 150}
   - {x: 150, y: 23}
+  - {x: 50, y: 50}
+  - {x: 50, y: 50}
+  - {x: 50, y: 50}
+  - {x: 50, y: 50}
   - {x: 50, y: 50}
   size: 1
   isDetectHit: 1
