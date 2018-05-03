@@ -29,3 +29,6 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+
+# Users generated data
+Neurotest/Assets/Users/*.meta
