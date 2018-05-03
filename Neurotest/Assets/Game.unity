@@ -372,7 +372,6 @@ MonoBehaviour:
   - {x: 150, y: 23}
   - {x: 50, y: 50}
   size: 1
-  pointNumber: 0
   isDetectHit: 1
 --- !u!4 &394956309
 Transform:
