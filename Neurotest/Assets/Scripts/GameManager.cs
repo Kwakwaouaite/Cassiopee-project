@@ -9,12 +9,15 @@ public class GameManager : MonoBehaviour {
     public LineManager lr;
     public GameObject prefabPoint;
     public Vector2[] pointPositions;
+    public GameObject endMenu;
     public float size; // Taille des points
     public bool isDetectHit;
 
     private List<GameObject> listPoints;
     private long current;
     private string currentPlayer;
+    private bool isExerciseFinished;
+    private string difficulty;
 
     // Use this for initialization
     void Start () {
@@ -23,16 +26,28 @@ public class GameManager : MonoBehaviour {
         if (currentPlayer == "")
         {   
             Debug.Log("<color=red>Error: </color><b>current_player </b>not found.");
+        } else
+        {
+            Debug.Log("Current player: " + currentPlayer);
         }
-        generateLevelData();
-        generatePointList();
+
+        difficulty = PlayerPrefs.GetString("current_difficulty");
+        if (!(difficulty == "easy" || difficulty == "medium" || difficulty == "hard"))
+        {
+            difficulty = "hard";
+            Debug.Log("<color=yellow>Warning: </color>difficulty not found, set at default: " + difficulty);
+        }
+
+        isExerciseFinished = false;
+        GenerateLevelData();
+        GeneratePointList();
         current = 0;
 		
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.touchCount > 0)
+        if (!isExerciseFinished && Input.touchCount > 0)
         {
             
             Vector3 pos = Camera.main.ScreenToWorldPoint(new Vector3(Input.GetTouch(0).position[0], Input.GetTouch(0).position[1], 10));
@@ -45,7 +60,7 @@ public class GameManager : MonoBehaviour {
         }
 	}
 
-    private void generateLevelData()
+    private void GenerateLevelData()
     {
         Vector3 screenSize = Camera.main.ScreenToWorldPoint(new Vector3(Camera.main.pixelHeight, Camera.main.pixelWidth));
         //Debug.Log(screenSize[0]);
@@ -62,23 +77,16 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    private void generatePointList()
+    private void GeneratePointList()
     {
         char[] alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
 
         listPoints = new List<GameObject>();
-        string difficulty = PlayerPrefs.GetString("current_difficulty");
-        if (!(difficulty == "easy" || difficulty == "medium" || difficulty == "hard"))
-        {
-            difficulty = "hard";
-            Debug.Log("<color=yellow>Warning: </color>difficulty not found, set at default: " + difficulty);
-        }
         for (int i = 0; i < pointPositions.Length; i++)
         {
             GameObject newPoint = Instantiate(prefabPoint);
             newPoint.transform.SetPositionAndRotation(new Vector3(pointPositions[i].x, pointPositions[i].y, -20), Quaternion.identity);
             newPoint.transform.localScale = new Vector3(size, size, size);
-            Debug.Log(newPoint.transform.localScale);  
             if (difficulty == "easy")
             {
                 newPoint.name = "Point " + i.ToString();
@@ -122,10 +130,20 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    public void GoTonextLevel()
+    public void OnPressValidateButton()
+    {
+        isExerciseFinished = true;
+        SaveData();
+
+        Debug.Log("Faire le menu de fin");
+        endMenu.SetActive(true);
+
+        //GoToNextLevel();
+    }
+
+    public void GoToNextLevel()
     {
         Debug.Log("Niveau suivant");
-        SaveData();
         SceneManager.LoadScene("Game", LoadSceneMode.Single);
     }
 
@@ -133,5 +151,10 @@ public class GameManager : MonoBehaviour {
     {
         //TODO
         Debug.Log("Faire la sauvegarde de donnees");
+    }
+
+    public void GoBackToMenu()
+    {
+        Debug.Log("TODO: load the menu");
     }
 }
