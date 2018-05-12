@@ -479,6 +479,8 @@ MonoBehaviour:
   - {x: 50, y: 50}
   - {x: 50, y: 50}
   - {x: 50, y: 50}
+  - {x: 50, y: 50}
+  - {x: 50, y: 50}
   endMenu: {fileID: 902869674}
   size: 1
   isDetectHit: 1
