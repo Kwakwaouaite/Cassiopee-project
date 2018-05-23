@@ -18,11 +18,16 @@ public class LogIn : MonoBehaviour {
 
     private string usernamestring;
 
+    private string path;
+
+
     public void LogInButton()
     {
+        path = Application.persistentDataPath + "/Users/";
+
         if (usernamestring != "")
         {
-            if (System.IO.Directory.Exists(@"C:/Dev/Cassiopee-project/Neurotest/Assets/Users/" + usernamestring + "/")) {
+            if (System.IO.Directory.Exists(path + usernamestring + "/")) {
                 PlayerPrefs.SetString("current_player", usernamestring);
 
                 username.text = "";

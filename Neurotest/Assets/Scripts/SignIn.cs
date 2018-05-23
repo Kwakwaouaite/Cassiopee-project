@@ -10,7 +10,9 @@ public class SignIn : MonoBehaviour {
 
 	public InputField username;
 
-	private string usernamestring;
+    private string path;
+
+    private string usernamestring;
 
     public GameObject signin;
     public GameObject secondmenu;
@@ -19,14 +21,16 @@ public class SignIn : MonoBehaviour {
     public GameObject popup3;
 
     public void SignInButton() {
-        
-		if (usernamestring != "") {
-			if (!System.IO.Directory.Exists(@"C:/Dev/Cassiopee-project/Neurotest/Assets/Users/" + usernamestring + "/")) {
+
+        path = Application.persistentDataPath + "/Users/";
+
+        if (usernamestring != "") {
+			if (!System.IO.Directory.Exists(path + usernamestring + "/")) {
                 // création des dossiers
-                System.IO.Directory.CreateDirectory(@"C:/Dev/Cassiopee-project/Neurotest/Assets/Users/" + usernamestring + "/");
-                System.IO.Directory.CreateDirectory(@"C:/Dev/Cassiopee-project/Neurotest/Assets/Users/" + usernamestring + "/easy/");
-                System.IO.Directory.CreateDirectory(@"C:/Dev/Cassiopee-project/Neurotest/Assets/Users/" + usernamestring + "/medium/");
-                System.IO.Directory.CreateDirectory(@"C:/Dev/Cassiopee-project/Neurotest/Assets/Users/" + usernamestring + "/hard");
+                System.IO.Directory.CreateDirectory(path + usernamestring + "/");
+                System.IO.Directory.CreateDirectory(path + usernamestring + "/easy/");
+                System.IO.Directory.CreateDirectory(path + usernamestring + "/medium/");
+                System.IO.Directory.CreateDirectory(path + usernamestring + "/hard");
 
                 // creation et mise à jour des sharedpref
                 PlayerPrefs.SetInt(usernamestring+"_easy_level", 0);

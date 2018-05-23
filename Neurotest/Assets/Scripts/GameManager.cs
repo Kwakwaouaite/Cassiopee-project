@@ -155,6 +155,6 @@ public class GameManager : MonoBehaviour {
 
     public void GoBackToMenu()
     {
-        Debug.Log("TODO: load the menu");
+        SceneManager.LoadScene("Menu", LoadSceneMode.Single);
     }
 }
