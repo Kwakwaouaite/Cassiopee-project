@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour {
     public GameObject prefabPoint;
     public Vector2[] pointPositions;
     public GameObject endMenu;
-    public float size; // Taille des points
+    private float size; // Taille des points
     public bool isDetectHit;
 
     private List<GameObject> listPoints;
@@ -37,6 +37,10 @@ public class GameManager : MonoBehaviour {
             difficulty = "hard";
             Debug.Log("<color=yellow>Warning: </color>difficulty not found, set at default: " + difficulty);
         }
+        size = PlayerPrefs.GetFloat(PlayerPrefs.GetString("current_player") + "_option_size");
+        // TODO : Mettre le test d'existence
+
+
 
         isExerciseFinished = false;
         GenerateLevelData();
