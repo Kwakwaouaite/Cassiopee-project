@@ -3,24 +3,32 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Text;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GameManager : MonoBehaviour {
 
     public LineManager lr;
     public GameObject prefabPoint;
+    public GameObject prefabLineManager;
     public Vector2[] pointPositions;
     public GameObject endMenu;
     private float size; // Taille des points
     public bool isDetectHit;
+    public TextMeshProUGUI title;
 
     private List<GameObject> listPoints;
+    private List<GameObject> lineManagerList;
+    private LineManager currentLineManager;
     private long current;
     private string currentPlayer;
     private bool isExerciseFinished;
     private string difficulty;
+    private bool isDrawing = false;
 
     // Use this for initialization
     void Start () {
+
+        lineManagerList = new List<GameObject>();
 
         currentPlayer = PlayerPrefs.GetString("current_player");
         if (currentPlayer == "")
@@ -51,18 +59,37 @@ public class GameManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (!isExerciseFinished && Input.touchCount > 0)
+
+        if (Input.GetMouseButtonUp(0))
+        {
+            isDrawing = false;
+        }
+
+        
+        if (!isExerciseFinished && Input.GetMouseButton(0) && isDrawing)
         {
             
-            Vector3 pos = Camera.main.ScreenToWorldPoint(new Vector3(Input.GetTouch(0).position[0], Input.GetTouch(0).position[1], 10));
+                       Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             if (isDetectHit)
             {
                 DetectHit(pos);               
             }
-            lr.AddPoint(pos.x, pos.y);
-            
+            currentLineManager.AddPoint(pos.x, pos.y);
+
         }
-	}
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            Debug.Log("Touch detected");
+            //GameObject test = Instantiate(prefabLineManager) as GameObject;
+            //Debug.Log(test);
+            GameObject newLineManager = Instantiate(prefabLineManager);
+            lineManagerList.Add(newLineManager);
+            currentLineManager = newLineManager.GetComponent<LineManager>();
+            isDrawing = true;
+        }
+    }
+
 
     private void GenerateLevelData()
     {
@@ -72,8 +99,8 @@ public class GameManager : MonoBehaviour {
 
         int height = (int)screenSize[0];
         int width = (int)screenSize[1];
+        
 
-        //pointNumber = (int)Random.Range(5, 15);
         for (int i=0; i < pointPositions.Length; i++)
         {
             pointPositions[i][0] = (int)Random.Range(10, width - 10);
