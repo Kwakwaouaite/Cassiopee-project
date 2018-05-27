@@ -37,6 +37,8 @@ public class SignIn : MonoBehaviour {
                 PlayerPrefs.SetInt(usernamestring + "_medium_level", 0);
                 PlayerPrefs.SetInt(usernamestring + "_hard_level", 0);
                 PlayerPrefs.SetFloat(usernamestring + "_option_size", 1);
+                PlayerPrefs.SetString(usernamestring + "_option_visible", "true");
+                
 
                 PlayerPrefs.SetString("current_player", usernamestring);
                 

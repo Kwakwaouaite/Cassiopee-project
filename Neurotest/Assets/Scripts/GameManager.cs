@@ -186,6 +186,8 @@ public class GameManager : MonoBehaviour {
 
     public void GoBackToMenu()
     {
+        PlayerPrefs.SetFloat(PlayerPrefs.GetString("current_player") + "_option_size", 1);
+        PlayerPrefs.SetString(PlayerPrefs.GetString("current_player") + "_option_visible", "true");
         SceneManager.LoadScene("Menu", LoadSceneMode.Single);
     }
 }
