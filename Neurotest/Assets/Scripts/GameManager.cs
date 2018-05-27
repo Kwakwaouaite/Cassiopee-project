@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour {
     // Use this for initialization
     void Start () {
 
+
         lineManagerList = new List<GameObject>();
         dataPositionCollected = new List<Vector2>();
 
@@ -181,24 +182,29 @@ public class GameManager : MonoBehaviour {
     private void SaveData()
     {
         //TODO
+        string difficultyFR = "facile";
+        switch (difficulty) {
+            case "easy":
+                difficultyFR = "facile";
+                break;
+            case "medium":
+                difficultyFR = "moyen";
+                break;
+            case "hard":
+                difficultyFR = "difficile";
+                break;
+        }
+
+        string savePath = Application.persistentDataPath + "/Utilisateurs/" + currentPlayer 
+            + "/" + difficultyFR + "/" + "changeselonleniveau.txt";
         
-
-        string savePath = "Users/" + currentPlayer + "/" + "fichier.txt";
-
-        savePath = System.IO.Path.Combine(Application.persistentDataPath, savePath);
+        savePath = System.IO.Path.GetFullPath(savePath);
 
         Debug.Log("Sauvegarde des données : " + savePath);
 
         title.text = System.IO.Path.GetFullPath(savePath);
 
-        //List<Vector2> test = new List<Vector2> { new Vector2(1, 2), new Vector2(3, 4) };
-
-
-
         CSVScript.SaveDataToCSV(savePath, dataPositionCollected, header: "This is my header");
-
-        //Debug.Log(CSVScript.ReadCSV(path, skip: 1).ToString());
-
 
     }
 
