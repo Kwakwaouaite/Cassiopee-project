@@ -23,7 +23,7 @@ public class LogIn : MonoBehaviour {
 
     public void LogInButton()
     {
-        path = Application.persistentDataPath + "/Users/";
+        path = Application.persistentDataPath + "/Utilisateurs/";
 
         if (usernamestring != "")
         {

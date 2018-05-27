@@ -7,11 +7,6 @@ public class Options : MonoBehaviour {
        
     public GameObject point;
 
-    // Use this for initialization
-    void Start()
-    {
-
-    }
 
     public void AdjustSize(float newSize)
     {
@@ -19,11 +14,20 @@ public class Options : MonoBehaviour {
         point.transform.localScale = new Vector3(adjust*newSize, adjust * newSize, adjust * newSize);
         PlayerPrefs.SetFloat(PlayerPrefs.GetString("current_player")+"_option_size", newSize);
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
+    public void TraitVisible(bool visible)
+    {
+        if (visible == true)
+        {
+            PlayerPrefs.SetString(PlayerPrefs.GetString("current_player") + "_option_visible", "true");
+        }
+        else
+        {
+            PlayerPrefs.SetString(PlayerPrefs.GetString("current_player") + "_option_visible", "false");
+
+        }
+    }
+
 }
 
 

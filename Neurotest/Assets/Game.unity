@@ -1026,7 +1026,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 200, y: 50}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1022237659
 MonoBehaviour:
@@ -1112,7 +1112,7 @@ MonoBehaviour:
   m_firstVisibleCharacter: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 100.30472, y: 25.678009, z: 100.30472, w: 24.073143}
+  m_margin: {x: 0.46276855, y: 0.1980896, z: 0.46276855, w: -0.40733337}
   m_textInfo:
     textComponent: {fileID: 1022237659}
     characterCount: 7
@@ -1530,7 +1530,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 200, y: 50}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1452674287
 MonoBehaviour:
@@ -1616,7 +1616,7 @@ MonoBehaviour:
   m_firstVisibleCharacter: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 100.66669, y: 25.537598, z: 100.30472, w: 23.671936}
+  m_margin: {x: -0.29981995, y: -0.04058838, z: -0.6246948, w: 0.113082886}
   m_textInfo:
     textComponent: {fileID: 1452674287}
     characterCount: 4

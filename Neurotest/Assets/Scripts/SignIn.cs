@@ -22,21 +22,23 @@ public class SignIn : MonoBehaviour {
 
     public void SignInButton() {
 
-        path = Application.persistentDataPath + "/Users/";
+        path = Application.persistentDataPath + "/Utilisateurs/";
 
         if (usernamestring != "") {
 			if (!System.IO.Directory.Exists(path + usernamestring + "/")) {
                 // création des dossiers
                 System.IO.Directory.CreateDirectory(path + usernamestring + "/");
-                System.IO.Directory.CreateDirectory(path + usernamestring + "/easy/");
-                System.IO.Directory.CreateDirectory(path + usernamestring + "/medium/");
-                System.IO.Directory.CreateDirectory(path + usernamestring + "/hard");
+                System.IO.Directory.CreateDirectory(path + usernamestring + "/facile/");
+                System.IO.Directory.CreateDirectory(path + usernamestring + "/moyen/");
+                System.IO.Directory.CreateDirectory(path + usernamestring + "/difficile");
 
                 // creation et mise à jour des sharedpref
                 PlayerPrefs.SetInt(usernamestring+"_easy_level", 0);
                 PlayerPrefs.SetInt(usernamestring + "_medium_level", 0);
                 PlayerPrefs.SetInt(usernamestring + "_hard_level", 0);
                 PlayerPrefs.SetFloat(usernamestring + "_option_size", 1);
+                PlayerPrefs.SetString(usernamestring + "_option_visible", "true");
+                
 
                 PlayerPrefs.SetString("current_player", usernamestring);
                 
