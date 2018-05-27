@@ -28,9 +28,9 @@ public class SignIn : MonoBehaviour {
 			if (!System.IO.Directory.Exists(path + usernamestring + "/")) {
                 // création des dossiers
                 System.IO.Directory.CreateDirectory(path + usernamestring + "/");
-                System.IO.Directory.CreateDirectory(path + usernamestring + "/easy/");
-                System.IO.Directory.CreateDirectory(path + usernamestring + "/medium/");
-                System.IO.Directory.CreateDirectory(path + usernamestring + "/hard");
+                System.IO.Directory.CreateDirectory(path + usernamestring + "/facile/");
+                System.IO.Directory.CreateDirectory(path + usernamestring + "/moyen/");
+                System.IO.Directory.CreateDirectory(path + usernamestring + "/difficile");
 
                 // creation et mise à jour des sharedpref
                 PlayerPrefs.SetInt(usernamestring+"_easy_level", 0);
