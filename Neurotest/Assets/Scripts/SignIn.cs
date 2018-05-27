@@ -22,7 +22,7 @@ public class SignIn : MonoBehaviour {
 
     public void SignInButton() {
 
-        path = Application.persistentDataPath + "/Users/";
+        path = Application.persistentDataPath + "/Utilisateurs/";
 
         if (usernamestring != "") {
 			if (!System.IO.Directory.Exists(path + usernamestring + "/")) {
