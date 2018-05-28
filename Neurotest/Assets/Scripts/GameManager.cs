@@ -19,16 +19,19 @@ public class GameManager : MonoBehaviour {
     private List<GameObject> listPoints;
     private List<GameObject> lineManagerList;
     private LineManager currentLineManager;
+    private List<Vector2> dataPositionCollected;
     private long current;
     private string currentPlayer;
     private bool isExerciseFinished;
     private string difficulty;
-    private bool isDrawing = false;
+    private bool isDrawing = false; // Booleen = vrai, si le le bouton est appuye pour dessiner
 
     // Use this for initialization
     void Start () {
 
+
         lineManagerList = new List<GameObject>();
+        dataPositionCollected = new List<Vector2>();
 
         currentPlayer = PlayerPrefs.GetString("current_player");
         if (currentPlayer == "")
@@ -46,9 +49,7 @@ public class GameManager : MonoBehaviour {
             Debug.Log("<color=yellow>Warning: </color>difficulty not found, set at default: " + difficulty);
         }
         size = PlayerPrefs.GetFloat(PlayerPrefs.GetString("current_player") + "_option_size");
-        // TODO : Mettre le test d'existence
-
-
+        // TODO : Mettre le test d'existence 
 
         isExerciseFinished = false;
         GenerateLevelData();
@@ -64,17 +65,17 @@ public class GameManager : MonoBehaviour {
         {
             isDrawing = false;
         }
-
         
         if (!isExerciseFinished && Input.GetMouseButton(0) && isDrawing)
         {
             
-                       Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             if (isDetectHit)
             {
                 DetectHit(pos);               
             }
             currentLineManager.AddPoint(pos.x, pos.y);
+            dataPositionCollected.Add(new Vector2(pos.x, pos.y));
 
         }
 
@@ -181,7 +182,30 @@ public class GameManager : MonoBehaviour {
     private void SaveData()
     {
         //TODO
-        Debug.Log("Faire la sauvegarde de donnees");
+        string difficultyFR = "facile";
+        switch (difficulty) {
+            case "easy":
+                difficultyFR = "facile";
+                break;
+            case "medium":
+                difficultyFR = "moyen";
+                break;
+            case "hard":
+                difficultyFR = "difficile";
+                break;
+        }
+
+        string savePath = Application.persistentDataPath + "/Utilisateurs/" + currentPlayer 
+            + "/" + difficultyFR + "/" + "changeselonleniveau.txt";
+        
+        savePath = System.IO.Path.GetFullPath(savePath);
+
+        Debug.Log("Sauvegarde des données : " + savePath);
+
+        title.text = System.IO.Path.GetFullPath(savePath);
+
+        CSVScript.SaveDataToCSV(savePath, dataPositionCollected, header: "This is my header");
+
     }
 
     public void GoBackToMenu()
