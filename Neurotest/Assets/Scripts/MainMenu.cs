@@ -7,6 +7,10 @@ public class MainMenu : MonoBehaviour {
 
     public GameObject firstmenu;
     public GameObject secondmenu;
+    public GameObject levelbis;
+    public GameObject level;
+
+
 
     // Use this for initialization
     void Start()
@@ -21,21 +25,20 @@ public class MainMenu : MonoBehaviour {
 
     public void StartGameEasy()
     {
-        PlayerPrefs.SetString("menu_return", "true");
         PlayerPrefs.SetString("current_difficulty", "easy");
-        SceneManager.LoadScene("Game");
+        level.SetActive(false);
+        levelbis.SetActive(true);
     }
 
     public void StartGameMedium()
     {
-        PlayerPrefs.SetString("menu_return", "true");
         PlayerPrefs.SetString("current_difficulty", "medium");
-        SceneManager.LoadScene("Game");
+        level.SetActive(false);
+        levelbis.SetActive(true); ;
     }
 
     public void StartGameHard()
     {
-        PlayerPrefs.SetString("menu_return", "true");
         PlayerPrefs.SetString("current_difficulty", "hard");
         SceneManager.LoadScene("Game");
     }
@@ -44,4 +47,16 @@ public class MainMenu : MonoBehaviour {
         PlayerPrefs.SetString("menu_return", "false");
         Application.Quit();
 	}
+
+    public void StartGameLetters()
+    {
+        PlayerPrefs.SetString("current_choice", "letters");
+        SceneManager.LoadScene("Game");
+    }
+
+    public void StartGameNumbers()
+    {
+        PlayerPrefs.SetString("current_choice", "numbers");
+        SceneManager.LoadScene("Game");
+    }
 }
