@@ -29,7 +29,11 @@ public class SignIn : MonoBehaviour {
                 // création des dossiers
                 System.IO.Directory.CreateDirectory(path + usernamestring + "/");
                 System.IO.Directory.CreateDirectory(path + usernamestring + "/facile/");
+                System.IO.Directory.CreateDirectory(path + usernamestring + "/facile/lettres");
+                System.IO.Directory.CreateDirectory(path + usernamestring + "/facile/nombres");
                 System.IO.Directory.CreateDirectory(path + usernamestring + "/moyen/");
+                System.IO.Directory.CreateDirectory(path + usernamestring + "/moyen/lettres");
+                System.IO.Directory.CreateDirectory(path + usernamestring + "/moyen/nombres");
                 System.IO.Directory.CreateDirectory(path + usernamestring + "/difficile");
 
                 // creation et mise à jour des sharedpref

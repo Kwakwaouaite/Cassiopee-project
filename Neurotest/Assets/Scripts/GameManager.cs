@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour {
     private string currentPlayer;
     private bool isExerciseFinished;
     private string difficulty;
+    private string choice;
     private bool isDrawing = false; // Booleen = vrai, si le le bouton est appuye pour dessiner
 
     // Use this for initialization
@@ -50,6 +51,13 @@ public class GameManager : MonoBehaviour {
         }
         size = PlayerPrefs.GetFloat(PlayerPrefs.GetString("current_player") + "_option_size");
         // TODO : Mettre le test d'existence 
+
+        choice = PlayerPrefs.GetString("current_choice");
+        if (!(choice == "letters" || choice == "numbers"))
+        {
+            choice = "numbers";
+            Debug.Log("<color=yellow>Warning: </color>choice not found, set at default: " + choice);
+        }
 
         isExerciseFinished = false;
         GenerateLevelData();
@@ -121,10 +129,16 @@ public class GameManager : MonoBehaviour {
             newPoint.transform.localScale = new Vector3(size, size, size);
             if (difficulty == "easy")
             {
-                newPoint.name = "Point " + i.ToString();
+                if (choice == "letters")
+                    newPoint.name = "Point " + alphabet[i];
+                else
+                    newPoint.name = "Point " + i.ToString();
             } else if (difficulty == "medium")
             {
-                newPoint.name = "Point " + alphabet[i];
+                if (choice == "letters")
+                    newPoint.name = "Point " + alphabet[i];
+                else
+                    newPoint.name = "Point " + i.ToString();
             } else
             {
                 if (i%2 == 0)
