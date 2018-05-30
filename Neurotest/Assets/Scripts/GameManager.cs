@@ -12,7 +12,6 @@ public class GameManager : MonoBehaviour {
     public GameObject prefabLineManager;
     public Vector2[] pointPositions;
     public GameObject endMenu;
-    private float size; // Taille des points
     public bool isDetectHit;
     public TextMeshProUGUI title;
 
@@ -24,7 +23,9 @@ public class GameManager : MonoBehaviour {
     private string currentPlayer;
     private bool isExerciseFinished;
     private string difficulty;
+    private float size; // Taille des points
     private string choice;
+    private bool isDrawingVisible;  // Est ce qu'on affice les traits
     private bool isDrawing = false; // Booleen = vrai, si le le bouton est appuye pour dessiner
 
     // Use this for initialization
@@ -51,6 +52,18 @@ public class GameManager : MonoBehaviour {
         }
         size = PlayerPrefs.GetFloat(PlayerPrefs.GetString("current_player") + "_option_size");
         // TODO : Mettre le test d'existence 
+
+        choice = PlayerPrefs.GetString(currentPlayer + "_option_visible");
+        if (!(choice == "true" || choice == "false"))
+        {
+            choice = "true";
+            Debug.Log("<color=yellow>Warning: </color>option_visible not found, set at default: " + choice);
+        } else
+        {
+            Debug.Log("Draw is visible: " + choice);
+        }
+
+        isDrawingVisible = (choice == "true");
 
         choice = PlayerPrefs.GetString("current_choice");
         if (!(choice == "letters" || choice == "numbers"))
@@ -82,7 +95,10 @@ public class GameManager : MonoBehaviour {
             {
                 DetectHit(pos);               
             }
-            currentLineManager.AddPoint(pos.x, pos.y);
+            if (isDrawingVisible)
+            {
+                currentLineManager.AddPoint(pos.x, pos.y);
+            }
             dataPositionCollected.Add(new Vector2(pos.x, pos.y));
 
         }
@@ -90,11 +106,12 @@ public class GameManager : MonoBehaviour {
         if (Input.GetMouseButtonDown(0))
         {
             Debug.Log("Touch detected");
-            //GameObject test = Instantiate(prefabLineManager) as GameObject;
-            //Debug.Log(test);
-            GameObject newLineManager = Instantiate(prefabLineManager);
-            lineManagerList.Add(newLineManager);
-            currentLineManager = newLineManager.GetComponent<LineManager>();
+            if (isDrawingVisible)
+            {
+                GameObject newLineManager = Instantiate(prefabLineManager);
+                lineManagerList.Add(newLineManager);
+                currentLineManager = newLineManager.GetComponent<LineManager>();
+            }
             isDrawing = true;
         }
     }
