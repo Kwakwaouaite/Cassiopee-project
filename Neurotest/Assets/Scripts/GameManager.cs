@@ -71,6 +71,10 @@ public class GameManager : MonoBehaviour {
             choice = "numbers";
             Debug.Log("<color=yellow>Warning: </color>choice not found, set at default: " + choice);
         }
+        else
+        {
+            Debug.Log("Letters or numbers: " + choice);
+        }
 
         isExerciseFinished = false;
         GenerateLevelData();
