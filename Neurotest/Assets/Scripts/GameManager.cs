@@ -21,8 +21,11 @@ public class GameManager : MonoBehaviour {
     private List<Vector2> dataPositionCollected;
     private long current;
     private string currentPlayer;
+    private int currentLevel;
+    string savePath;
     private bool isExerciseFinished;
     private string difficulty;
+    string difficultyFR = "facile";
     private float size; // Taille des points
     private string choice;
     private bool isDrawingVisible;  // Est ce qu'on affice les traits
@@ -50,7 +53,32 @@ public class GameManager : MonoBehaviour {
             difficulty = "hard";
             Debug.Log("<color=yellow>Warning: </color>difficulty not found, set at default: " + difficulty);
         }
-        size = PlayerPrefs.GetFloat(PlayerPrefs.GetString("current_player") + "_option_size");
+        
+        switch (difficulty)
+        {
+            case "easy":
+                difficultyFR = "facile";
+                break;
+            case "medium":
+                difficultyFR = "moyen";
+                break;
+            case "hard":
+                difficultyFR = "difficile";
+                break;
+        }
+
+        currentLevel = PlayerPrefs.GetInt(currentPlayer + "_" + difficulty + "_level");
+        Debug.Log("Current level: " + currentLevel);
+
+        savePath = Application.persistentDataPath + "/Utilisateurs/" + currentPlayer
+            + "/" + difficultyFR + "/" + currentLevel +".txt";
+        title.text = currentPlayer + " - " + difficultyFR + " - " + currentLevel;
+
+        savePath = System.IO.Path.GetFullPath(savePath);
+
+        Debug.Log("Saving path: " + savePath);
+
+        size = PlayerPrefs.GetFloat(currentPlayer + "_option_size");
         // TODO : Mettre le test d'existence 
 
         choice = PlayerPrefs.GetString(currentPlayer + "_option_visible");
@@ -103,7 +131,10 @@ public class GameManager : MonoBehaviour {
             {
                 currentLineManager.AddPoint(pos.x, pos.y);
             }
-            dataPositionCollected.Add(new Vector2(pos.x, pos.y));
+            if (pos.y < 285) // On ne veut pas enregistrer quand on appuie sur le boutton
+            {
+                dataPositionCollected.Add(new Vector2(pos.x, pos.y));
+            }
 
         }
 
@@ -201,11 +232,7 @@ public class GameManager : MonoBehaviour {
     {
         isExerciseFinished = true;
         SaveData();
-
-        Debug.Log("Faire le menu de fin");
         endMenu.SetActive(true);
-
-        //GoToNextLevel();
     }
 
     public void GoToNextLevel()
@@ -215,29 +242,12 @@ public class GameManager : MonoBehaviour {
     }
 
     private void SaveData()
-    {
-        //TODO
-        string difficultyFR = "facile";
-        switch (difficulty) {
-            case "easy":
-                difficultyFR = "facile";
-                break;
-            case "medium":
-                difficultyFR = "moyen";
-                break;
-            case "hard":
-                difficultyFR = "difficile";
-                break;
-        }
-
-        string savePath = Application.persistentDataPath + "/Utilisateurs/" + currentPlayer 
-            + "/" + difficultyFR + "/" + "changeselonleniveau.txt";
-        
+    {   
         savePath = System.IO.Path.GetFullPath(savePath);
 
         Debug.Log("Sauvegarde des données : " + savePath);
 
-        title.text = System.IO.Path.GetFullPath(savePath);
+        //title.text = System.IO.Path.GetFullPath(savePath);
 
         CSVScript.SaveDataToCSV(savePath, dataPositionCollected, header: "This is my header");
 
