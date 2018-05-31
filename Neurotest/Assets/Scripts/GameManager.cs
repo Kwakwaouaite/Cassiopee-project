@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour {
     private bool isExerciseFinished;
     private string difficulty;
     string difficultyFR = "facile";
+    string chiffreOuLettre;
     private float size; // Taille des points
     private string choice;
     private bool isDrawingVisible;  // Est ce qu'on affice les traits
@@ -38,71 +39,7 @@ public class GameManager : MonoBehaviour {
         lineManagerList = new List<GameObject>();
         dataPositionCollected = new List<Vector2>();
 
-        currentPlayer = PlayerPrefs.GetString("current_player");
-        if (currentPlayer == "")
-        {   
-            Debug.Log("<color=red>Error: </color><b>current_player </b>not found.");
-        } else
-        {
-            Debug.Log("Current player: " + currentPlayer);
-        }
-
-        difficulty = PlayerPrefs.GetString("current_difficulty");
-        if (!(difficulty == "easy" || difficulty == "medium" || difficulty == "hard"))
-        {
-            difficulty = "hard";
-            Debug.Log("<color=yellow>Warning: </color>difficulty not found, set at default: " + difficulty);
-        }
-        
-        switch (difficulty)
-        {
-            case "easy":
-                difficultyFR = "facile";
-                break;
-            case "medium":
-                difficultyFR = "moyen";
-                break;
-            case "hard":
-                difficultyFR = "difficile";
-                break;
-        }
-
-        currentLevel = PlayerPrefs.GetInt(currentPlayer + "_" + difficulty + "_level");
-        Debug.Log("Current level: " + currentLevel);
-
-        savePath = Application.persistentDataPath + "/Utilisateurs/" + currentPlayer
-            + "/" + difficultyFR + "/" + currentLevel +".txt";
-        title.text = currentPlayer + " - " + difficultyFR + " - " + currentLevel;
-
-        savePath = System.IO.Path.GetFullPath(savePath);
-
-        Debug.Log("Saving path: " + savePath);
-
-        size = PlayerPrefs.GetFloat(currentPlayer + "_option_size");
-        // TODO : Mettre le test d'existence 
-
-        choice = PlayerPrefs.GetString(currentPlayer + "_option_visible");
-        if (!(choice == "true" || choice == "false"))
-        {
-            choice = "true";
-            Debug.Log("<color=yellow>Warning: </color>option_visible not found, set at default: " + choice);
-        } else
-        {
-            Debug.Log("Draw is visible: " + choice);
-        }
-
-        isDrawingVisible = (choice == "true");
-
-        choice = PlayerPrefs.GetString("current_choice");
-        if (!(choice == "letters" || choice == "numbers"))
-        {
-            choice = "numbers";
-            Debug.Log("<color=yellow>Warning: </color>choice not found, set at default: " + choice);
-        }
-        else
-        {
-            Debug.Log("Letters or numbers: " + choice);
-        }
+        InitializeFromPlayerPref();
 
         isExerciseFinished = false;
         GenerateLevelData();
@@ -151,6 +88,80 @@ public class GameManager : MonoBehaviour {
         }
     }
 
+    private void InitializeFromPlayerPref()
+    {
+        currentPlayer = PlayerPrefs.GetString("current_player");
+        if (currentPlayer == "")
+        {
+            Debug.Log("<color=red>Error: </color><b>current_player </b>not found.");
+        }
+        else
+        {
+            Debug.Log("Current player: " + currentPlayer);
+        }
+
+        difficulty = PlayerPrefs.GetString("current_difficulty");
+        if (!(difficulty == "easy" || difficulty == "medium" || difficulty == "hard"))
+        {
+            difficulty = "hard";
+            Debug.Log("<color=yellow>Warning: </color>difficulty not found, set at default: " + difficulty);
+        }
+
+        choice = PlayerPrefs.GetString("current_choice");
+        if (!(choice == "letters" || choice == "numbers"))
+        {
+            choice = "numbers";
+            Debug.Log("<color=yellow>Warning: </color>choice not found, set at default: " + choice);
+        }
+        else
+        {
+            Debug.Log("Letters or numbers: " + choice);
+        }
+
+        switch (difficulty)
+        {
+            case "easy":
+                difficultyFR = "facile";
+                currentLevel = PlayerPrefs.GetInt(currentPlayer + "_" + difficulty + "_" + choice + "_level");
+                break;
+            case "medium":
+                difficultyFR = "moyen";
+                currentLevel = PlayerPrefs.GetInt(currentPlayer + "_" + difficulty + "_" + choice + "_level");
+                break;
+            case "hard":
+                difficultyFR = "difficile";
+                choice = "";
+                currentLevel = PlayerPrefs.GetInt(currentPlayer + "_" + difficulty + "_level");
+                break;
+        }
+
+        
+        Debug.Log("Current level: " + currentLevel);
+
+        savePath = Application.persistentDataPath + "/Utilisateurs/" + currentPlayer
+            + "/" + difficultyFR + "/" + choice + "/" + currentLevel + ".txt";
+        title.text = currentPlayer + " - " + difficultyFR + " - " + currentLevel;
+
+        savePath = System.IO.Path.GetFullPath(savePath);
+
+        Debug.Log("Saving path: " + savePath);
+
+        size = PlayerPrefs.GetFloat(currentPlayer + "_option_size");
+        // TODO : Mettre le test d'existence 
+
+        choice = PlayerPrefs.GetString(currentPlayer + "_option_visible");
+        if (!(choice == "true" || choice == "false"))
+        {
+            choice = "true";
+            Debug.Log("<color=yellow>Warning: </color>option_visible not found, set at default: " + choice);
+        }
+        else
+        {
+            Debug.Log("Draw is visible: " + choice);
+        }
+
+        isDrawingVisible = (choice == "true");
+    }
 
     private void GenerateLevelData()
     {
