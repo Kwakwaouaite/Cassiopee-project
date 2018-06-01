@@ -37,7 +37,7 @@ public class CSVScript : MonoBehaviour {
         return data;
     }
 
-    public static void SaveDataToCSV(string path, List<Vector2> list, string header = null, char separator = '\t')
+    public static void SaveDataToCSV(string path, List<Vector3> list, string header = null, char separator = '\t')
     {
         /* public static void AppendAllLines(
             string path,
@@ -56,9 +56,9 @@ public class CSVScript : MonoBehaviour {
             }
 
             
-            foreach(Vector2 vector in list)
+            foreach(Vector3 vector in list)
             {
-                string line = vector.x + separator.ToString() + vector.y;
+                string line = vector.x + separator.ToString() + vector.y + separator.ToString() + vector.z;
                 sw.WriteLine(line);
                 Debug.Log("Writing: " + line);
             } 

@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour {
     private List<GameObject> listPoints;
     private List<GameObject> lineManagerList;
     private LineManager currentLineManager;
-    private List<Vector2> dataPositionCollected;
+    private List<Vector3> dataPositionCollected; // { x, y, time}
     private long current;
     private string currentPlayer;
     private int currentLevel;
@@ -31,13 +31,14 @@ public class GameManager : MonoBehaviour {
     private string choice;
     private bool isDrawingVisible;  // Est ce qu'on affice les traits
     private bool isDrawing = false; // Booleen = vrai, si le le bouton est appuye pour dessiner
+    //private Time
 
     // Use this for initialization
     void Start () {
 
 
         lineManagerList = new List<GameObject>();
-        dataPositionCollected = new List<Vector2>();
+        dataPositionCollected = new List<Vector3>();
 
         InitializeFromPlayerPref();
 
@@ -70,7 +71,7 @@ public class GameManager : MonoBehaviour {
             }
             if (pos.y < 285) // On ne veut pas enregistrer quand on appuie sur le boutton
             {
-                dataPositionCollected.Add(new Vector2(pos.x, pos.y));
+                dataPositionCollected.Add(new Vector3(pos.x, pos.y, Time.timeSinceLevelLoad));
             }
 
         }
