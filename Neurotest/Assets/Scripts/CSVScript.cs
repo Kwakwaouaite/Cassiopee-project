@@ -5,7 +5,7 @@ using System.IO;
 
 public class CSVScript : MonoBehaviour {
 
-	public static string[,] ReadCSV(string path, int skip=0)
+	public static string[,] ReadCSV(string path, int skip=0, char separator = '\t')
     {
         
         Debug.Log(path);
@@ -18,12 +18,12 @@ public class CSVScript : MonoBehaviour {
             return new string[0,0];
         }
 
-        int nbrColumn = lines[0 + skip].Split(',').Length;
+        int nbrColumn = lines[0 + skip].Split(separator).Length;
         string[,] data = new string[lines.Length, nbrColumn];
 
         for (int i = 0 + skip; i < lines.Length; i++)
         {
-            string[] row = lines[i].Split(',');
+            string[] row = lines[i].Split(separator);
             for (int j = 0; j < row.Length; j++)
             {
                 Debug.Log(i  + " " + j);
@@ -37,7 +37,7 @@ public class CSVScript : MonoBehaviour {
         return data;
     }
 
-    public static void SaveDataToCSV(string path, List<Vector2> list, string header = null)
+    public static void SaveDataToCSV(string path, List<Vector2> list, string header = null, char separator = '\t')
     {
         /* public static void AppendAllLines(
             string path,
@@ -58,8 +58,9 @@ public class CSVScript : MonoBehaviour {
             
             foreach(Vector2 vector in list)
             {
-                sw.WriteLine(vector.x + "," + vector.y);
-                Debug.Log("Writing: " + vector.x + "," + vector.y);
+                string line = vector.x + separator.ToString() + vector.y;
+                sw.WriteLine(line);
+                Debug.Log("Writing: " + line);
             } 
             
             /*
