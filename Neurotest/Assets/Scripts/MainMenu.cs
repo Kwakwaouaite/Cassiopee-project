@@ -50,13 +50,13 @@ public class MainMenu : MonoBehaviour {
 
     public void StartGameLetters()
     {
-        PlayerPrefs.SetString("current_choice", "letters");
+        PlayerPrefs.SetString("current_choice", "lettres");
         SceneManager.LoadScene("Game");
     }
 
     public void StartGameNumbers()
     {
-        PlayerPrefs.SetString("current_choice", "numbers");
+        PlayerPrefs.SetString("current_choice", "nombres");
         SceneManager.LoadScene("Game");
     }
 }

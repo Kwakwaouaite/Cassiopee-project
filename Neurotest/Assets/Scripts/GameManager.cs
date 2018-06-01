@@ -28,8 +28,8 @@ public class GameManager : MonoBehaviour {
     string difficultyFR = "facile";
     string chiffreOuLettre;
     private float size; // Taille des points
-    private string choice;
-    private bool isDrawingVisible;  // Est ce qu'on affice les traits
+    private string isDrawingVisible;
+    private bool isDrawingVisibleBool;  // Est ce qu'on affice les traits
     private bool isDrawing = false; // Booleen = vrai, si le le bouton est appuye pour dessiner
     //private Time
 
@@ -65,7 +65,7 @@ public class GameManager : MonoBehaviour {
             {
                 DetectHit(pos);               
             }
-            if (isDrawingVisible)
+            if (isDrawingVisibleBool)
             {
                 currentLineManager.AddPoint(pos.x, pos.y);
             }
@@ -79,7 +79,7 @@ public class GameManager : MonoBehaviour {
         if (Input.GetMouseButtonDown(0))
         {
             Debug.Log("Touch detected");
-            if (isDrawingVisible)
+            if (isDrawingVisibleBool)
             {
                 GameObject newLineManager = Instantiate(prefabLineManager);
                 lineManagerList.Add(newLineManager);
@@ -108,30 +108,30 @@ public class GameManager : MonoBehaviour {
             Debug.Log("<color=yellow>Warning: </color>difficulty not found, set at default: " + difficulty);
         }
 
-        choice = PlayerPrefs.GetString("current_choice");
-        if (!(choice == "letters" || choice == "numbers"))
+        chiffreOuLettre = PlayerPrefs.GetString("current_choice");
+        if (!(chiffreOuLettre == "lettres" || chiffreOuLettre == "nombres"))
         {
-            choice = "numbers";
-            Debug.Log("<color=yellow>Warning: </color>choice not found, set at default: " + choice);
+            chiffreOuLettre = "nombres";
+            Debug.Log("<color=yellow>Warning: </color>choice not found, set at default: " + chiffreOuLettre);
         }
         else
         {
-            Debug.Log("Letters or numbers: " + choice);
+            Debug.Log("Letters or numbers: " + chiffreOuLettre);
         }
 
         switch (difficulty)
         {
             case "easy":
                 difficultyFR = "facile";
-                currentLevel = PlayerPrefs.GetInt(currentPlayer + "_" + difficulty + "_" + choice + "_level");
+                currentLevel = PlayerPrefs.GetInt(currentPlayer + "_" + difficulty + "_" + chiffreOuLettre + "_level");
                 break;
             case "medium":
                 difficultyFR = "moyen";
-                currentLevel = PlayerPrefs.GetInt(currentPlayer + "_" + difficulty + "_" + choice + "_level");
+                currentLevel = PlayerPrefs.GetInt(currentPlayer + "_" + difficulty + "_" + chiffreOuLettre + "_level");
                 break;
             case "hard":
                 difficultyFR = "difficile";
-                choice = "";
+                chiffreOuLettre = "";
                 currentLevel = PlayerPrefs.GetInt(currentPlayer + "_" + difficulty + "_level");
                 break;
         }
@@ -140,7 +140,7 @@ public class GameManager : MonoBehaviour {
         Debug.Log("Current level: " + currentLevel);
 
         savePath = Application.persistentDataPath + "/Utilisateurs/" + currentPlayer
-            + "/" + difficultyFR + "/" + choice + "/" + currentLevel + ".txt";
+            + "/" + difficultyFR + "/" + chiffreOuLettre + "/" + currentLevel + ".txt";
         title.text = currentPlayer + " - " + difficultyFR + " - " + currentLevel;
 
         savePath = System.IO.Path.GetFullPath(savePath);
@@ -150,18 +150,18 @@ public class GameManager : MonoBehaviour {
         size = PlayerPrefs.GetFloat(currentPlayer + "_option_size");
         // TODO : Mettre le test d'existence 
 
-        choice = PlayerPrefs.GetString(currentPlayer + "_option_visible");
-        if (!(choice == "true" || choice == "false"))
+        isDrawingVisible = PlayerPrefs.GetString(currentPlayer + "_option_visible");
+        if (!(isDrawingVisible == "true" || isDrawingVisible == "false"))
         {
-            choice = "true";
-            Debug.Log("<color=yellow>Warning: </color>option_visible not found, set at default: " + choice);
+            isDrawingVisible = "true";
+            Debug.Log("<color=yellow>Warning: </color>option_visible not found, set at default: " + isDrawingVisible);
         }
         else
         {
-            Debug.Log("Draw is visible: " + choice);
+            Debug.Log("Draw is visible: " + isDrawingVisible);
         }
 
-        isDrawingVisible = (choice == "true");
+        isDrawingVisibleBool = (isDrawingVisible == "true");
     }
 
     private void GenerateLevelData()
@@ -193,13 +193,13 @@ public class GameManager : MonoBehaviour {
             newPoint.transform.localScale = new Vector3(size, size, size);
             if (difficulty == "easy")
             {
-                if (choice == "letters")
+                if (chiffreOuLettre == "lettres")
                     newPoint.name = "Point " + alphabet[i];
                 else
                     newPoint.name = "Point " + i.ToString();
             } else if (difficulty == "medium")
             {
-                if (choice == "letters")
+                if (chiffreOuLettre == "lettres")
                     newPoint.name = "Point " + alphabet[i];
                 else
                     newPoint.name = "Point " + i.ToString();
