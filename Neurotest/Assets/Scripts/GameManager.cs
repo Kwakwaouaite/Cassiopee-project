@@ -174,6 +174,7 @@ public class GameManager : MonoBehaviour {
         int width = (int)screenSize[1];
         
 
+        //for (int i=0; i < pointPositions.Length; i++)
         for (int i=0; i < pointPositions.Length; i++)
         {
             pointPositions[i][0] = (int)Random.Range(10, width - 10);
@@ -243,7 +244,7 @@ public class GameManager : MonoBehaviour {
     public void OnPressValidateButton()
     {
         isExerciseFinished = true;
-        SaveData();
+        SaveDataBis();
         endMenu.SetActive(true);
     }
 
@@ -254,7 +255,7 @@ public class GameManager : MonoBehaviour {
     }
 
     private void SaveData()
-    {   
+    {
         savePath = System.IO.Path.GetFullPath(savePath);
 
         Debug.Log("Sauvegarde des données : " + savePath);
@@ -262,6 +263,27 @@ public class GameManager : MonoBehaviour {
         //title.text = System.IO.Path.GetFullPath(savePath);
 
         CSVScript.SaveDataToCSV(savePath, dataPositionCollected, header: "This is my header");
+
+    }
+
+    public void SaveDataBis()
+    {
+        int variableAure = PlayerPrefs.GetInt("variableAure");
+        savePath = System.IO.Path.GetFullPath("C:/Dev/Cassiopee-project/Neurotest/Assets/Users/"+variableAure+".csv");
+        PlayerPrefs.SetInt("variableAure",variableAure + 1);
+
+        for (int i = 0; i < pointPositions.Length; i++)
+        {
+            dataPositionCollected.Add(new Vector3(pointPositions[i].x, pointPositions[i].y, 0));
+        }
+
+        Debug.Log("Sauvegarde des données : " + savePath);
+
+        //title.text = System.IO.Path.GetFullPath(savePath);
+
+        CSVScript.SaveDataToCSV(savePath, dataPositionCollected, header: "This is my header");
+
+        GoToNextLevel();
 
     }
 
