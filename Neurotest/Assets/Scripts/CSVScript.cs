@@ -73,4 +73,41 @@ public class CSVScript : MonoBehaviour {
             sw.WriteLine();*/
         }
     }
+
+    public static void SaveDataToCSV(string path, List<Vector2> list, string header = null, char separator = '\t')
+    {
+        /* public static void AppendAllLines(
+            string path,
+            IEnumerable<string> contents
+        )*/
+        //Debug.Log("Wrintpath: " + path);
+
+        using (StreamWriter sw = new StreamWriter(path))
+        {
+
+
+            if (header != null)
+            {
+                sw.WriteLine(header);
+                Debug.Log("Writing: " + header);
+            }
+
+
+            foreach (Vector2 vector in list)
+            {
+                string line = vector.x + separator.ToString() + vector.y;
+                sw.WriteLine(line);
+                Debug.Log("Writing: " + line);
+            }
+
+            /*
+            // Add some text to the file.
+            sw.Write("This is the ");
+            sw.WriteLine("header for the file.");
+            sw.WriteLine("-------------------");
+            // Arbitrary objects can also be written to the file.
+            sw.Write("The date is: ");
+            sw.WriteLine();*/
+        }
+    }
 }

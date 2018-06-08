@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour {
     private List<GameObject> lineManagerList;
     private LineManager currentLineManager;
     private List<Vector3> dataPositionCollected; // { x, y, time}
+    private List<Vector2> pointPositionCollected; // { x, y}
     private long current;
     private string currentPlayer;
     private int currentLevel;
@@ -39,6 +40,7 @@ public class GameManager : MonoBehaviour {
 
         lineManagerList = new List<GameObject>();
         dataPositionCollected = new List<Vector3>();
+        pointPositionCollected = new List<Vector2>();
 
         InitializeFromPlayerPref();
 
@@ -274,14 +276,14 @@ public class GameManager : MonoBehaviour {
 
         for (int i = 0; i < pointPositions.Length; i++)
         {
-            dataPositionCollected.Add(new Vector3(pointPositions[i].x, pointPositions[i].y, 0));
+            pointPositionCollected.Add(new Vector2(pointPositions[i].x, pointPositions[i].y));
         }
 
         Debug.Log("Sauvegarde des données : " + savePath);
 
         //title.text = System.IO.Path.GetFullPath(savePath);
 
-        CSVScript.SaveDataToCSV(savePath, dataPositionCollected, header: "This is my header");
+        CSVScript.SaveDataToCSV(savePath, pointPositionCollected, header: "This is my header");
 
         GoToNextLevel();
 
