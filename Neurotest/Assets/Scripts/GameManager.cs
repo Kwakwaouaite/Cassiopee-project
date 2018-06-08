@@ -244,7 +244,7 @@ public class GameManager : MonoBehaviour {
     public void OnPressValidateButton()
     {
         isExerciseFinished = true;
-        SaveDataBis();
+        SaveData();
         endMenu.SetActive(true);
     }
 
