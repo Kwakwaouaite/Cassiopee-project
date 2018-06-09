@@ -47,7 +47,7 @@ public class GameManager : MonoBehaviour {
 
         InitializeFromPlayerPref();
 
-        if (!isExerciseFinished) // Si on n'a pas finis la série, on charge les données
+        if (!isExerciseFinished && difficulty != "brouillon") // Si on n'a pas finis la série, on charge les données
         {
             GenerateLevelData();
             GeneratePointList();
@@ -98,6 +98,8 @@ public class GameManager : MonoBehaviour {
 
     private void InitializeFromPlayerPref()
     {
+        PlayerPrefs.SetString("current_difficulty", "brouillon");
+
         currentPlayer = PlayerPrefs.GetString("current_player");
         if (currentPlayer == "")
         {
@@ -109,11 +111,24 @@ public class GameManager : MonoBehaviour {
         }
 
         difficulty = PlayerPrefs.GetString("current_difficulty");
-        if (!(difficulty == "easy" || difficulty == "medium" || difficulty == "hard"))
+        if (!(difficulty == "easy" || difficulty == "medium" || difficulty == "hard" || difficulty == "brouillon"))
         {
             difficulty = "hard";
             Debug.Log("<color=yellow>Warning: </color>difficulty not found, set at default: " + difficulty);
         }
+
+        isDrawingVisible = PlayerPrefs.GetString(currentPlayer + "_option_visible");
+        if (!(isDrawingVisible == "true" || isDrawingVisible == "false"))
+        {
+            isDrawingVisible = "true";
+            Debug.Log("<color=yellow>Warning: </color>option_visible not found, set at default: " + isDrawingVisible);
+        }
+        else
+        {
+            Debug.Log("Draw is visible: " + isDrawingVisible);
+        }
+
+        isDrawingVisibleBool = (isDrawingVisible == "true");
 
         chiffreOuLettre = PlayerPrefs.GetString("current_choice");
         if (!(chiffreOuLettre == "lettres" || chiffreOuLettre == "nombres"))
@@ -141,11 +156,17 @@ public class GameManager : MonoBehaviour {
                 chiffreOuLettre = "";
                 playerPrefLevelPath = currentPlayer + "_" + difficulty + "_level";
                 break;
+            case "brouillon":
+                difficultyFR = "brouillon";
+                chiffreOuLettre = "";
+                playerPrefLevelPath = currentPlayer + "_" + difficulty + "_level";
+                break;
         }
+
 
         currentLevel = PlayerPrefs.GetInt(playerPrefLevelPath);
 
-        if (currentLevel >= maxLevelInASerie )
+        if (currentLevel >= maxLevelInASerie && difficulty != "brouillon")
         {
             title.text = "La série est finie";
             isExerciseFinished = true;
@@ -166,18 +187,7 @@ public class GameManager : MonoBehaviour {
         size = PlayerPrefs.GetFloat(currentPlayer + "_option_size");
         // TODO : Mettre le test d'existence 
 
-        isDrawingVisible = PlayerPrefs.GetString(currentPlayer + "_option_visible");
-        if (!(isDrawingVisible == "true" || isDrawingVisible == "false"))
-        {
-            isDrawingVisible = "true";
-            Debug.Log("<color=yellow>Warning: </color>option_visible not found, set at default: " + isDrawingVisible);
-        }
-        else
-        {
-            Debug.Log("Draw is visible: " + isDrawingVisible);
-        }
-
-        isDrawingVisibleBool = (isDrawingVisible == "true");
+        
     }
 
     private void GenerateLevelData()
