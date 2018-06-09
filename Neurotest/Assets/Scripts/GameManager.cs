@@ -40,7 +40,6 @@ public class GameManager : MonoBehaviour {
     // Use this for initialization
     void Start () {
 
-
         lineManagerList = new List<GameObject>();
         dataPositionCollected = new List<Vector3>();
 
@@ -299,7 +298,11 @@ public class GameManager : MonoBehaviour {
 
         //title.text = System.IO.Path.GetFullPath(savePath);
 
-        CSVScript.SaveDataToCSV(savePath, dataPositionCollected, header: "This is my header");
+
+
+        string header = System.DateTime.Now.ToString() + "- Trait visible: " + isDrawingVisible + "- Taille: " + size;
+
+        CSVScript.SaveDataToCSV(savePath, dataPositionCollected, header: header);
 
     }
 
