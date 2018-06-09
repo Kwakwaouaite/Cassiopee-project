@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour {
     public GameObject endMenu;
     public bool isDetectHit;
     public TextMeshProUGUI title;
+    public bool isRandomPosition;
+    public int maxLevelInASerie = 30;
 
     private List<GameObject> listPoints;
     private List<GameObject> lineManagerList;
@@ -23,6 +25,7 @@ public class GameManager : MonoBehaviour {
     private long current;
     private string currentPlayer;
     private int currentLevel;
+    private string playerPrefLevelPath;
     string savePath;
     private bool isExerciseFinished;
     private string difficulty;
@@ -40,13 +43,16 @@ public class GameManager : MonoBehaviour {
 
         lineManagerList = new List<GameObject>();
         dataPositionCollected = new List<Vector3>();
-        pointPositionCollected = new List<Vector2>();
+
+        isExerciseFinished = false;
 
         InitializeFromPlayerPref();
 
-        isExerciseFinished = false;
-        GenerateLevelData();
-        GeneratePointList();
+        if (!isExerciseFinished) // Si on n'a pas finis la série, on charge les données
+        {
+            GenerateLevelData();
+            GeneratePointList();
+        }
         current = 0;
 		
 	}
@@ -125,20 +131,29 @@ public class GameManager : MonoBehaviour {
         {
             case "easy":
                 difficultyFR = "facile";
-                currentLevel = PlayerPrefs.GetInt(currentPlayer + "_" + difficulty + "_" + chiffreOuLettre + "_level");
+                playerPrefLevelPath = currentPlayer + "_" + difficulty + "_" + chiffreOuLettre + "_level";
                 break;
             case "medium":
                 difficultyFR = "moyen";
-                currentLevel = PlayerPrefs.GetInt(currentPlayer + "_" + difficulty + "_" + chiffreOuLettre + "_level");
+                playerPrefLevelPath = currentPlayer + "_" + difficulty + "_" + chiffreOuLettre + "_level";
                 break;
             case "hard":
                 difficultyFR = "difficile";
                 chiffreOuLettre = "";
-                currentLevel = PlayerPrefs.GetInt(currentPlayer + "_" + difficulty + "_level");
+                playerPrefLevelPath = currentPlayer + "_" + difficulty + "_level";
                 break;
         }
 
-        
+        currentLevel = PlayerPrefs.GetInt(playerPrefLevelPath);
+
+        if (currentLevel >= maxLevelInASerie )
+        {
+            title.text = "La série est finie";
+            isExerciseFinished = true;
+            endMenu.SetActive(true);
+            return;
+        }
+
         Debug.Log("Current level: " + currentLevel);
 
         savePath = Application.persistentDataPath + "/Utilisateurs/" + currentPlayer
@@ -177,11 +192,30 @@ public class GameManager : MonoBehaviour {
         
 
         //for (int i=0; i < pointPositions.Length; i++)
-        for (int i=0; i < pointPositions.Length; i++)
+        if (!isRandomPosition)
         {
-            pointPositions[i][0] = (int)Random.Range(10, width - 10);
-            pointPositions[i][1] = (int)Random.Range(10, height - 30);
+            string pointPath = Application.persistentDataPath + "/niveaux/" 
+                + difficultyFR + "/" + chiffreOuLettre + "/" + currentLevel + ".txt";
+            pointPath = System.IO.Path.GetFullPath(pointPath);
+            Debug.Log("Looking for data at: " + pointPath);
+            
+            string[,] read = CSVScript.ReadCSV(pointPath);
+            pointPositions = new Vector2[read.Length / 2];
+            for (int i = 0; i < read.Length/2; i++)
+            {
+                pointPositions[i][0] = int.Parse(read[i, 0]);
+                pointPositions[i][1] = int.Parse(read[i, 0]);
+            }
+            //pointPositions = new Vector2
+        } else
+        {
+            for (int i = 0; i < pointPositions.Length; i++)
+            {
+                pointPositions[i][0] = (int)Random.Range(10, width - 10);
+                pointPositions[i][1] = (int)Random.Range(10, height - 30);
+            }
         }
+        
     }
 
     private void GeneratePointList()
@@ -253,6 +287,7 @@ public class GameManager : MonoBehaviour {
     public void GoToNextLevel()
     {
         Debug.Log("Niveau suivant");
+        PlayerPrefs.SetInt(playerPrefLevelPath, currentLevel + 1);
         SceneManager.LoadScene("Game", LoadSceneMode.Single);
     }
 
@@ -273,6 +308,7 @@ public class GameManager : MonoBehaviour {
         int variableAure = PlayerPrefs.GetInt("variableAure");
         savePath = System.IO.Path.GetFullPath("C:/Dev/Cassiopee-project/Neurotest/Assets/Users/"+variableAure+".csv");
         PlayerPrefs.SetInt("variableAure",variableAure + 1);
+        List<Vector2> pointPositionCollected = new List<Vector2>();
 
         for (int i = 0; i < pointPositions.Length; i++)
         {
@@ -283,7 +319,7 @@ public class GameManager : MonoBehaviour {
 
         //title.text = System.IO.Path.GetFullPath(savePath);
 
-        CSVScript.SaveDataToCSV(savePath, pointPositionCollected, header: "This is my header");
+        CSVScript.SaveDataToCSV(savePath, pointPositionCollected);
 
         GoToNextLevel();
 

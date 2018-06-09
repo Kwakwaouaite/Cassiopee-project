@@ -571,6 +571,8 @@ MonoBehaviour:
   endMenu: {fileID: 902869674}
   isDetectHit: 1
   title: {fileID: 539552853}
+  isRandomPosition: 0
+  maxLevelInASerie: 30
 --- !u!4 &394956309
 Transform:
   m_ObjectHideFlags: 0
