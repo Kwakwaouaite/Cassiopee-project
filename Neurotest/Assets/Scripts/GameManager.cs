@@ -40,7 +40,6 @@ public class GameManager : MonoBehaviour {
 
         lineManagerList = new List<GameObject>();
         dataPositionCollected = new List<Vector3>();
-        pointPositionCollected = new List<Vector2>();
 
         InitializeFromPlayerPref();
 
@@ -273,6 +272,7 @@ public class GameManager : MonoBehaviour {
         int variableAure = PlayerPrefs.GetInt("variableAure");
         savePath = System.IO.Path.GetFullPath("C:/Dev/Cassiopee-project/Neurotest/Assets/Users/"+variableAure+".csv");
         PlayerPrefs.SetInt("variableAure",variableAure + 1);
+        List<Vector2> pointPositionCollected = new List<Vector2>();
 
         for (int i = 0; i < pointPositions.Length; i++)
         {
@@ -283,7 +283,7 @@ public class GameManager : MonoBehaviour {
 
         //title.text = System.IO.Path.GetFullPath(savePath);
 
-        CSVScript.SaveDataToCSV(savePath, pointPositionCollected, header: "This is my header");
+        CSVScript.SaveDataToCSV(savePath, pointPositionCollected);
 
         GoToNextLevel();
 
