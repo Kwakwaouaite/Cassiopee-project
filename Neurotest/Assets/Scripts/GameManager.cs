@@ -98,7 +98,6 @@ public class GameManager : MonoBehaviour {
 
     private void InitializeFromPlayerPref()
     {
-        PlayerPrefs.SetString("current_difficulty", "brouillon");
 
         currentPlayer = PlayerPrefs.GetString("current_player");
         if (currentPlayer == "")
