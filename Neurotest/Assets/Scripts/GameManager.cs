@@ -209,10 +209,10 @@ public class GameManager : MonoBehaviour {
         //for (int i=0; i < pointPositions.Length; i++)
         if (!isRandomPosition)
         {
-            /* string pointPath = Application.persistentDataPath + "/niveaux/" 
+            string pointPath = Application.persistentDataPath + "/niveaux/" 
                 + difficultyFR + "/" + chiffreOuLettre + "/" + currentLevel + ".txt";
-                */
-            string pointPath = "C:/Dev/Cassiopee-project/Neurotest/Assets/Levels/facile/lettres/1.csv";
+                
+            //string pointPath = "C:/Dev/Cassiopee-project/Neurotest/Assets/Levels/facile/lettres/1.csv";
 
 
             pointPath = System.IO.Path.GetFullPath(pointPath);
@@ -222,6 +222,8 @@ public class GameManager : MonoBehaviour {
             pointPositions = new Vector2[read.Length / 2];
             for (int i = 0; i < read.Length/2; i++)
             {
+                if (read[i,0] == null)
+                    break;
                 pointPositions[i][0] = int.Parse(read[i, 0]);
                 pointPositions[i][1] = int.Parse(read[i, 1]);
             }

@@ -23,6 +23,8 @@ public class CSVScript : MonoBehaviour {
 
         for (int i = 0 + skip; i < lines.Length; i++)
         {
+            if (lines[i].Length == 0)
+                break;
             string[] row = lines[i].Split(separator);
             for (int j = 0; j < row.Length; j++)
             {
