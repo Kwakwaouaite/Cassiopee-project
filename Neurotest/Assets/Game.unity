@@ -569,7 +569,7 @@ MonoBehaviour:
   - {x: 50, y: 50}
   - {x: 50, y: 50}
   endMenu: {fileID: 902869674}
-  isDetectHit: 1
+  isDetectHit: 0
   title: {fileID: 539552853}
   isRandomPosition: 0
   maxLevelInASerie: 30

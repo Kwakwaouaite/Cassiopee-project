@@ -163,10 +163,16 @@ public class GameManager : MonoBehaviour {
                 break;
         }
 
+        if (PlayerPrefs.GetInt(playerPrefLevelPath) == 0)
+        {
+            currentLevel = 1;
+        }
+        else
+        {
+            currentLevel = PlayerPrefs.GetInt(playerPrefLevelPath);
+        }
 
-        currentLevel = PlayerPrefs.GetInt(playerPrefLevelPath);
-
-        if (currentLevel >= maxLevelInASerie && difficulty != "brouillon")
+        if (currentLevel > maxLevelInASerie && difficulty != "brouillon")
         {
             title.text = "La série est finie";
             isExerciseFinished = true;
@@ -193,8 +199,8 @@ public class GameManager : MonoBehaviour {
     private void GenerateLevelData()
     {
         Vector3 screenSize = Camera.main.ScreenToWorldPoint(new Vector3(Camera.main.pixelHeight, Camera.main.pixelWidth));
-        //Debug.Log(screenSize[0]);
-        //Debug.Log(screenSize[1]);
+        Debug.Log("Sreen"+screenSize[0]);
+        Debug.Log("Screen"+screenSize[1]);
 
         int height = (int)screenSize[0];
         int width = (int)screenSize[1];
@@ -203,8 +209,12 @@ public class GameManager : MonoBehaviour {
         //for (int i=0; i < pointPositions.Length; i++)
         if (!isRandomPosition)
         {
-            string pointPath = Application.persistentDataPath + "/niveaux/" 
+            /* string pointPath = Application.persistentDataPath + "/niveaux/" 
                 + difficultyFR + "/" + chiffreOuLettre + "/" + currentLevel + ".txt";
+                */
+            string pointPath = "C:/Dev/Cassiopee-project/Neurotest/Assets/Levels/facile/lettres/1.csv";
+
+
             pointPath = System.IO.Path.GetFullPath(pointPath);
             Debug.Log("Looking for data at: " + pointPath);
             
@@ -226,6 +236,7 @@ public class GameManager : MonoBehaviour {
 
             for (int i = 1; i < pointPositions.Length; i++)
             {
+                /*
                 bool testxokay = false;
                 bool testyokay = false;
 
@@ -263,14 +274,55 @@ public class GameManager : MonoBehaviour {
                         pointPositions[i][0] = rand1;
                         pointPositions[i][1] = rand2;
                         val = false;
-                    }  
+                    }
+                    
+
+
                     if (noFreeze > 500)
                     {
                         pointPositions[i][0] = rand1;
                         pointPositions[i][1] = rand2;
                         val = false;
                     }
+
                 } 
+                */
+
+                bool test = true;
+                bool val = true;
+
+                int noFreeze = 0;
+
+                while (val)
+                {
+                    noFreeze++;
+                    rand1 = (int)UnityEngine.Random.Range(10, width - 10);
+                    rand2 = (int)UnityEngine.Random.Range(10, height - 10);
+                    
+                    for (int j = 0; j < i; j++)
+                    {
+                        if (Math.Sqrt(Math.Pow(rand1 - pointPositions[j][0], 2) + Math.Pow(rand2 - pointPositions[j][1], 2)) < 20)
+                        {
+                            test = false;
+                        }
+                       
+
+                    }
+                    if (test)
+                    {
+                        pointPositions[i][0] = rand1;
+                        pointPositions[i][1] = rand2;
+                        val = false;
+                    }
+
+                    if (noFreeze > 500)
+                    {
+                        pointPositions[i][0] = rand1;
+                        pointPositions[i][1] = rand2;
+                        val = false;
+                    }
+
+                }
             }
         }        
     }
