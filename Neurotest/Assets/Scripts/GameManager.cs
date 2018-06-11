@@ -223,7 +223,7 @@ public class GameManager : MonoBehaviour {
             for (int i = 0; i < read.Length/2; i++)
             {
                 pointPositions[i][0] = int.Parse(read[i, 0]);
-                pointPositions[i][1] = int.Parse(read[i, 0]);
+                pointPositions[i][1] = int.Parse(read[i, 1]);
             }
             //pointPositions = new Vector2
         } else
