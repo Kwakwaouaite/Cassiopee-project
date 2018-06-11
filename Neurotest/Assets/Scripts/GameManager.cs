@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Text;
 using UnityEngine.SceneManagement;
 using TMPro;
+using System;
 
 public class GameManager : MonoBehaviour {
 
@@ -217,13 +218,61 @@ public class GameManager : MonoBehaviour {
             //pointPositions = new Vector2
         } else
         {
-            for (int i = 0; i < pointPositions.Length; i++)
+            int rand1 = 0;
+            int rand2 = 0;
+
+            pointPositions[0][0] = (int)UnityEngine.Random.Range(10, width - 10);
+            pointPositions[0][1] = (int)UnityEngine.Random.Range(10, height - 30);
+
+            for (int i = 1; i < pointPositions.Length; i++)
             {
-                pointPositions[i][0] = (int)Random.Range(10, width - 10);
-                pointPositions[i][1] = (int)Random.Range(10, height - 30);
+                bool testxokay = false;
+                bool testyokay = false;
+
+                bool val = true;
+
+                int noFreeze = 0;
+
+                while (val)
+                {
+                    noFreeze++;
+                    if (!testxokay)
+                    {
+                        rand1 = (int)UnityEngine.Random.Range(10, width - 10);
+                        testxokay = true;
+                    }
+                    if (!testyokay)
+                    {
+                        rand2 = (int)UnityEngine.Random.Range(10, height - 10);
+                        testyokay = true;
+                    }
+                    for (int j = 0 ; j < i; j++)
+                    {  
+                        if (Math.Abs(rand1 - pointPositions[j][0]) < 10 )
+                        {
+                            testxokay = false;
+                        }
+                        if (Math.Abs(rand2 - pointPositions[j][1]) < 10)
+                        {
+                            testyokay = false;
+                        }
+                       
+                    }
+                    if (testxokay && testyokay)
+                    {
+                        pointPositions[i][0] = rand1;
+                        pointPositions[i][1] = rand2;
+                        val = false;
+                    }  
+                    if (noFreeze > 500)
+                    {
+                        pointPositions[i][0] = rand1;
+                        pointPositions[i][1] = rand2;
+                        val = false;
+                    }
+                } 
             }
-        }
-        
+        }        
     }
 
     private void GeneratePointList()
