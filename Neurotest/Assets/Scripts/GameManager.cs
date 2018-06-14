@@ -5,6 +5,7 @@ using System.Text;
 using UnityEngine.SceneManagement;
 using TMPro;
 using System;
+using Better.StreamingAssets;
 
 public class GameManager : MonoBehaviour {
 
