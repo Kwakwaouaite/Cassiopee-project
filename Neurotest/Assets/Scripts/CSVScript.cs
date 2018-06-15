@@ -60,7 +60,7 @@ public class CSVScript : MonoBehaviour {
             
             foreach(Vector3 vector in list)
             {
-                string line = vector.x + separator.ToString() + vector.y + separator.ToString() + vector.z;
+                string line = vector.x + separator.ToString() + vector.y + separator.ToString() + vector.z + "\n";
                 sw.WriteLine(line);
                 Debug.Log("Writing: " + line);
             } 
