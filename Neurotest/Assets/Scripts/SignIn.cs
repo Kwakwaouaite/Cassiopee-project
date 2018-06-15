@@ -35,6 +35,7 @@ public class SignIn : MonoBehaviour {
                 System.IO.Directory.CreateDirectory(path + usernamestring + "/moyen/lettres");
                 System.IO.Directory.CreateDirectory(path + usernamestring + "/moyen/nombres");
                 System.IO.Directory.CreateDirectory(path + usernamestring + "/difficile");
+                System.IO.Directory.CreateDirectory(path + usernamestring + "/brouillon");
 
                 // creation et mise à jour des sharedpref
                 PlayerPrefs.SetInt(usernamestring+"_easy_level", 0);

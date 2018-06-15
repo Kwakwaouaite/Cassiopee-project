@@ -5,6 +5,7 @@ using System.Text;
 using UnityEngine.SceneManagement;
 using TMPro;
 using System;
+using Better.StreamingAssets;
 
 public class GameManager : MonoBehaviour {
 
@@ -184,7 +185,14 @@ public class GameManager : MonoBehaviour {
 
         savePath = Application.persistentDataPath + "/Utilisateurs/" + currentPlayer
             + "/" + difficultyFR + "/" + chiffreOuLettre + "/" + currentLevel + ".txt";
-        title.text = currentPlayer + " - " + difficultyFR + " - " + currentLevel;
+        if (chiffreOuLettre == "")
+        {
+            title.text = currentPlayer + " - " + difficultyFR + " - " + currentLevel;
+        } else
+        {
+            title.text = currentPlayer + " - " + difficultyFR + " - " + chiffreOuLettre + " - " + currentLevel;
+        }
+        
 
         savePath = System.IO.Path.GetFullPath(savePath);
 
