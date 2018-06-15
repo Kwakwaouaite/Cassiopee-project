@@ -553,25 +553,10 @@ MonoBehaviour:
   - {x: 50, y: 50}
   - {x: 50, y: 50}
   - {x: 50, y: 50}
-  - {x: 50, y: 50}
-  - {x: 50, y: 50}
-  - {x: 50, y: 50}
-  - {x: 50, y: 50}
-  - {x: 50, y: 50}
-  - {x: 50, y: 50}
-  - {x: 50, y: 50}
-  - {x: 50, y: 50}
-  - {x: 50, y: 50}
-  - {x: 50, y: 50}
-  - {x: 50, y: 50}
-  - {x: 50, y: 50}
-  - {x: 50, y: 50}
-  - {x: 50, y: 50}
-  - {x: 50, y: 50}
   endMenu: {fileID: 902869674}
   isDetectHit: 0
   title: {fileID: 539552853}
-  isRandomPosition: 0
+  isRandomPosition: 1
   maxLevelInASerie: 30
 --- !u!4 &394956309
 Transform:

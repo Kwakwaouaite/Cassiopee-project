@@ -209,11 +209,9 @@ public class GameManager : MonoBehaviour {
         //for (int i=0; i < pointPositions.Length; i++)
         if (!isRandomPosition)
         {
-            string pointPath = Application.persistentDataPath + "/niveaux/" 
-                + difficultyFR + "/" + chiffreOuLettre + "/" + currentLevel + ".txt";
-                
-            //string pointPath = "C:/Dev/Cassiopee-project/Neurotest/Assets/Levels/facile/lettres/1.csv";
-
+            //string pointPath = Application.persistentDataPath + "/niveaux/" 
+            //    + difficultyFR + "/" + chiffreOuLettre + "/" + currentLevel + ".txt";
+            string pointPath = "C:/Dev/Cassiopee-project/Neurotest/Assets/Levels/moyen/lettres/" + currentLevel + ".txt";
 
             pointPath = System.IO.Path.GetFullPath(pointPath);
             Debug.Log("Looking for data at: " + pointPath);
@@ -233,63 +231,11 @@ public class GameManager : MonoBehaviour {
             int rand1 = 0;
             int rand2 = 0;
 
-            pointPositions[0][0] = (int)UnityEngine.Random.Range(10, width - 10);
-            pointPositions[0][1] = (int)UnityEngine.Random.Range(10, height - 30);
+            pointPositions[0][0] = (int)UnityEngine.Random.Range(18, width - 18);
+            pointPositions[0][1] = (int)UnityEngine.Random.Range(18, height - 40);
 
             for (int i = 1; i < pointPositions.Length; i++)
             {
-                /*
-                bool testxokay = false;
-                bool testyokay = false;
-
-                bool val = true;
-
-                int noFreeze = 0;
-
-                while (val)
-                {
-                    noFreeze++;
-                    if (!testxokay)
-                    {
-                        rand1 = (int)UnityEngine.Random.Range(10, width - 10);
-                        testxokay = true;
-                    }
-                    if (!testyokay)
-                    {
-                        rand2 = (int)UnityEngine.Random.Range(10, height - 10);
-                        testyokay = true;
-                    }
-                    for (int j = 0 ; j < i; j++)
-                    {  
-                        if (Math.Abs(rand1 - pointPositions[j][0]) < 10 )
-                        {
-                            testxokay = false;
-                        }
-                        if (Math.Abs(rand2 - pointPositions[j][1]) < 10)
-                        {
-                            testyokay = false;
-                        }
-                       
-                    }
-                    if (testxokay && testyokay)
-                    {
-                        pointPositions[i][0] = rand1;
-                        pointPositions[i][1] = rand2;
-                        val = false;
-                    }
-                    
-
-
-                    if (noFreeze > 500)
-                    {
-                        pointPositions[i][0] = rand1;
-                        pointPositions[i][1] = rand2;
-                        val = false;
-                    }
-
-                } 
-                */
-
                 bool test = true;
                 bool val = true;
 
@@ -298,12 +244,12 @@ public class GameManager : MonoBehaviour {
                 while (val)
                 {
                     noFreeze++;
-                    rand1 = (int)UnityEngine.Random.Range(10, width - 10);
-                    rand2 = (int)UnityEngine.Random.Range(10, height - 10);
+                    rand1 = (int)UnityEngine.Random.Range(18, width - 18);
+                    rand2 = (int)UnityEngine.Random.Range(18, height - 40);
                     
                     for (int j = 0; j < i; j++)
                     {
-                        if (Math.Sqrt(Math.Pow(rand1 - pointPositions[j][0], 2) + Math.Pow(rand2 - pointPositions[j][1], 2)) < 20)
+                        if (Math.Sqrt(Math.Pow(rand1 - pointPositions[j][0], 2) + Math.Pow(rand2 - pointPositions[j][1], 2)) < 40)
                         {
                             test = false;
                         }
@@ -317,17 +263,20 @@ public class GameManager : MonoBehaviour {
                         val = false;
                     }
 
-                    if (noFreeze > 500)
+                    if (noFreeze > 1000)
                     {
                         pointPositions[i][0] = rand1;
                         pointPositions[i][1] = rand2;
                         val = false;
                     }
 
+                    PlayerPrefs.SetInt(playerPrefLevelPath, currentLevel - 1);
+
                 }
             }
         }        
     }
+
 
     private void GeneratePointList()
     {
@@ -399,6 +348,11 @@ public class GameManager : MonoBehaviour {
     {
         Debug.Log("Niveau suivant");
         PlayerPrefs.SetInt(playerPrefLevelPath, currentLevel + 1);
+        SceneManager.LoadScene("Game", LoadSceneMode.Single);
+    }
+
+    public void RedoLevel()
+    {
         SceneManager.LoadScene("Game", LoadSceneMode.Single);
     }
 
