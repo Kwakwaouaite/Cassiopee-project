@@ -219,7 +219,7 @@ public class GameManager : MonoBehaviour {
         {
             //string pointPath = Application.persistentDataPath + "/niveaux/" 
             //    + difficultyFR + "/" + chiffreOuLettre + "/" + currentLevel + ".txt";
-            string pointPath = "C:/Dev/Cassiopee-project/Neurotest/Assets/Levels/moyen/lettres/" + currentLevel + ".txt";
+            string pointPath = "C:/Dev/Cassiopee-project/Neurotest/Assets/Levels/moyen/nombres/" + currentLevel + ".txt";
 
             pointPath = System.IO.Path.GetFullPath(pointPath);
             Debug.Log("Looking for data at: " + pointPath);
@@ -257,12 +257,11 @@ public class GameManager : MonoBehaviour {
                     
                     for (int j = 0; j < i; j++)
                     {
-                        if (Math.Sqrt(Math.Pow(rand1 - pointPositions[j][0], 2) + Math.Pow(rand2 - pointPositions[j][1], 2)) < 40)
+                        if (Math.Sqrt(Math.Pow(rand1 - pointPositions[j][0], 2) + Math.Pow(rand2 - pointPositions[j][1], 2)) < 22)
                         {
                             test = false;
                         }
                        
-
                     }
                     if (test)
                     {
@@ -271,7 +270,7 @@ public class GameManager : MonoBehaviour {
                         val = false;
                     }
 
-                    if (noFreeze > 1000)
+                    if (noFreeze > 10000)
                     {
                         pointPositions[i][0] = rand1;
                         pointPositions[i][1] = rand2;
