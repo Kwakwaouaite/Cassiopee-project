@@ -230,8 +230,8 @@ public class GameManager : MonoBehaviour {
             {
                 if (read[i,0] == null)
                     break;
-                pointPositions[i][0] = int.Parse(read[i, 0]);
-                pointPositions[i][1] = int.Parse(read[i, 1]);
+                pointPositions[i][0] = float.Parse(read[i, 0]);
+                pointPositions[i][1] = float.Parse(read[i, 1]);
             }
             //pointPositions = new Vector2
         } else
@@ -292,6 +292,10 @@ public class GameManager : MonoBehaviour {
         listPoints = new List<GameObject>();
         for (int i = 0; i < pointPositions.Length; i++)
         {
+            if (pointPositions[i].x == 0 && pointPositions[i].y == 0)
+            {
+                break;
+            }
             GameObject newPoint = Instantiate(prefabPoint);
             newPoint.transform.SetPositionAndRotation(new Vector3(pointPositions[i].x, pointPositions[i].y, -20), Quaternion.identity);
             newPoint.transform.localScale = new Vector3(size, size, size);
