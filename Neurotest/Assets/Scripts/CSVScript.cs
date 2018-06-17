@@ -8,7 +8,7 @@ public class CSVScript : MonoBehaviour {
 	public static string[,] ReadCSV(string path, int skip=0, char separator = '\t')
     {
         
-        Debug.Log(path);
+        //Debug.Log(path);
         string fileData = System.IO.File.ReadAllText(path);
         string[] lines = fileData.Split('\n');
 
@@ -28,10 +28,7 @@ public class CSVScript : MonoBehaviour {
             string[] row = lines[i].Split(separator);
             for (int j = 0; j < row.Length; j++)
             {
-                Debug.Log(i  + " " + j);
-                Debug.Log(row[j]);
                 data[i, j] = row[j];
-                Debug.Log(data[i, j]);
             }
         }
 

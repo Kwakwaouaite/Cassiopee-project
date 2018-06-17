@@ -207,8 +207,8 @@ public class GameManager : MonoBehaviour {
     private void GenerateLevelData()
     {
         Vector3 screenSize = Camera.main.ScreenToWorldPoint(new Vector3(Camera.main.pixelHeight, Camera.main.pixelWidth));
-        Debug.Log("Sreen"+screenSize[0]);
-        Debug.Log("Screen"+screenSize[1]);
+        //Debug.Log("Sreen"+screenSize[0]);
+        //Debug.Log("Screen"+screenSize[1]);
 
         int height = (int)screenSize[0];
         int width = (int)screenSize[1];
@@ -217,9 +217,9 @@ public class GameManager : MonoBehaviour {
         //for (int i=0; i < pointPositions.Length; i++)
         if (!isRandomPosition)
         {
-            //string pointPath = Application.persistentDataPath + "/niveaux/" 
-            //    + difficultyFR + "/" + chiffreOuLettre + "/" + currentLevel + ".txt";
-            string pointPath = "C:/Dev/Cassiopee-project/Neurotest/Assets/Levels/moyen/lettres/" + currentLevel + ".txt";
+            string pointPath = Application.persistentDataPath + "/niveaux/" 
+                + difficultyFR + "/" + chiffreOuLettre + "/" + currentLevel + ".txt";
+            //string pointPath = "C:/Dev/Cassiopee-project/Neurotest/Assets/Levels/moyen/lettres/" + currentLevel + ".txt";
 
             pointPath = System.IO.Path.GetFullPath(pointPath);
             Debug.Log("Looking for data at: " + pointPath);
