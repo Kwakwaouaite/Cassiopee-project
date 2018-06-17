@@ -257,12 +257,11 @@ public class GameManager : MonoBehaviour {
                     
                     for (int j = 0; j < i; j++)
                     {
-                        if (Math.Sqrt(Math.Pow(rand1 - pointPositions[j][0], 2) + Math.Pow(rand2 - pointPositions[j][1], 2)) < 40)
+                        if (Math.Sqrt(Math.Pow(rand1 - pointPositions[j][0], 2) + Math.Pow(rand2 - pointPositions[j][1], 2)) < 22)
                         {
                             test = false;
                         }
                        
-
                     }
                     if (test)
                     {
@@ -271,7 +270,7 @@ public class GameManager : MonoBehaviour {
                         val = false;
                     }
 
-                    if (noFreeze > 1000)
+                    if (noFreeze > 10000)
                     {
                         pointPositions[i][0] = rand1;
                         pointPositions[i][1] = rand2;
