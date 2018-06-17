@@ -26,6 +26,12 @@ public class MainMenu : MonoBehaviour {
         }
     }
 
+	public void StartBacASable()
+	{
+		PlayerPrefs.SetString("current_difficulty", "brouillon");
+		SceneManager.LoadScene("Game");
+	}
+
     public void StartGameEasy()
     {
         PlayerPrefs.SetString("current_difficulty", "easy");
