@@ -6,9 +6,12 @@ using UnityEngine.Experimental.UIElements;
 public class Options : MonoBehaviour {
        
     public GameObject point;
+	public GameObject menuSecond;       
+	public GameObject menuOption;
 
     public void OnEnable()
     {
+		point.SetActive(true);
         PlayerPrefs.SetFloat(PlayerPrefs.GetString("current_player") + "_option_size", 1);
     }
 
@@ -31,6 +34,14 @@ public class Options : MonoBehaviour {
 
         }
     }
+
+	public void Retour()
+	{
+		point.SetActive(false);
+		menuSecond.SetActive(true);
+		menuOption.SetActive(false);
+	}
+
 
 }
 
