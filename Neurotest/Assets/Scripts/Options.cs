@@ -7,6 +7,10 @@ public class Options : MonoBehaviour {
        
     public GameObject point;
 
+    public void OnEnable()
+    {
+        PlayerPrefs.SetFloat(PlayerPrefs.GetString("current_player") + "_option_size", 1);
+    }
 
     public void AdjustSize(float newSize)
     {

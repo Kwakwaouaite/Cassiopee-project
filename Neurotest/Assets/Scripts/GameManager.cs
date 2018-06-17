@@ -405,7 +405,6 @@ public class GameManager : MonoBehaviour {
     public void GoBackToMenu()
     {
         PlayerPrefs.SetString("menu_return", "true");
-        PlayerPrefs.SetFloat(currentPlayer + "_option_size", 1);
         PlayerPrefs.SetString(currentPlayer + "_option_visible", "true");
         SceneManager.LoadScene("Menu", LoadSceneMode.Single);
     }
