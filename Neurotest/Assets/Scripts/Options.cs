@@ -17,7 +17,7 @@ public class Options : MonoBehaviour {
 
     public void AdjustSize(float newSize)
     {
-        int adjust = 5;
+        float adjust = 4.266;
         point.transform.localScale = new Vector3(adjust*newSize, adjust * newSize, adjust * newSize);
         PlayerPrefs.SetFloat(PlayerPrefs.GetString("current_player")+"_option_size", newSize);
     }
