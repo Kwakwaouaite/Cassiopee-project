@@ -18,6 +18,7 @@ public class Options : MonoBehaviour {
 
     public void OnEnable()
     {
+		popUp4.SetActive (false);
 		point.SetActive(true);
         PlayerPrefs.SetFloat(PlayerPrefs.GetString("current_player") + "_option_size", 1);
 		PlayerPrefs.SetInt(PlayerPrefs.GetString("current_player") + "_option_numberPoints", 25);
@@ -44,6 +45,13 @@ public class Options : MonoBehaviour {
 
 	public void Retour()
 	{
+		if (nbPoints.text == "") {
+			PlayerPrefs.SetInt(PlayerPrefs.GetString("current_player") + "_option_numberPoints", 25);
+			point.SetActive (false);
+			menuSecond.SetActive (true);
+			menuOption.SetActive (false);
+		} 
+
 		try {
 			nbPointsInt = int.Parse(nbPoints.text);
 		}
@@ -56,11 +64,11 @@ public class Options : MonoBehaviour {
 			nbPoints.text = "";
 		} 
 
-		PlayerPrefs.SetInt(PlayerPrefs.GetString("current_player") + "_option_numberPoints", nbPointsInt);
 		if (nbPointsInt < 10 || nbPointsInt > 25) {
 			popUp4.SetActive (true);
 		} 
 		else {
+			PlayerPrefs.SetInt(PlayerPrefs.GetString("current_player") + "_option_numberPoints", nbPointsInt);
 			point.SetActive (false);
 			menuSecond.SetActive (true);
 			menuOption.SetActive (false);
