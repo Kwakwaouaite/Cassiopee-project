@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour {
     public TextMeshProUGUI title;
     public bool isRandomPosition;
     public int maxLevelInASerie = 30;
+    public GameObject nextLevelButton;
 
     private List<GameObject> listPoints;
     private List<GameObject> lineManagerList;
@@ -177,6 +178,7 @@ public class GameManager : MonoBehaviour {
         {
             title.text = "La série est finie";
             isExerciseFinished = true;
+            nextLevelButton.SetActive(false);
             endMenu.SetActive(true);
             return;
         }
