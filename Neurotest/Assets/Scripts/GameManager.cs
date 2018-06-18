@@ -379,7 +379,7 @@ public class GameManager : MonoBehaviour {
 
 
 
-        string header = System.DateTime.Now.ToString() + "- Trait visible: " + isDrawingVisible + "- Taille: " + size;
+        string header = System.DateTime.Now.ToString() + "- Trait visible: " + isDrawingVisible + "- Taille: " + size*20 ;
 
         CSVScript.SaveDataToCSV(savePath, dataPositionCollected, header: header);
 
