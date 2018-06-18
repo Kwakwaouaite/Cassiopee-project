@@ -12,6 +12,7 @@ public class Options : MonoBehaviour {
 	public GameObject menuSecond;       
 	public GameObject menuOption;
 	public GameObject popUp4;
+	public Text sizeTexte;
 
 	public InputField nbPoints;
 	private int nbPointsInt;
@@ -26,9 +27,10 @@ public class Options : MonoBehaviour {
 
     public void AdjustSize(float newSize)
     {
+		sizeTexte.text = (Math.Round((Decimal)(20*newSize),1)).ToString(); 
         float adjust = 4.2666f;
-        point.transform.localScale = new Vector3(adjust*newSize, adjust * newSize, adjust * newSize);
-        PlayerPrefs.SetFloat(PlayerPrefs.GetString("current_player")+"_option_size", newSize);
+		point.transform.localScale = new Vector3(adjust*newSize, adjust * newSize, adjust * newSize);
+		PlayerPrefs.SetFloat(PlayerPrefs.GetString("current_player")+"_option_size", newSize);
     }
 
     public void TraitVisible(bool visible)
