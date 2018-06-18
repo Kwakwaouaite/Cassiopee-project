@@ -7,38 +7,43 @@ using TMPro;
 using System;
 using Better.StreamingAssets;
 
+/*
+ * Cette classe sert de superviseur pour chaque session de jeu, elle contient 
+ * beaucoup (trop) de fonctionnalitées tel que la génération des données au 
+ * début du niveau, l'enregistrement et le traçage du tracé de l'utilisateur.
+ * 
+ */
 public class GameManager : MonoBehaviour {
 
-    public LineManager lr;
-    public GameObject prefabPoint;
-    public GameObject prefabLineManager;
-    public Vector2[] pointPositions;
-    public GameObject endMenu;
-    public bool isDetectHit;
-    public TextMeshProUGUI title;
-    public bool isRandomPosition;
-    public int maxLevelInASerie = 30;
-    public GameObject nextLevelButton;
+    public LineManager lr;    // Le line manager de base pour le prefab.
+    public GameObject prefabPoint;  // Le prefab du point.
+    public GameObject prefabLineManager;    // Le prefab du line manager.
+    public Vector2[] pointPositions;   // Vecteur contenant toute les posistions des points.
+    public GameObject endMenu;  // Le GameObject correspondant au menu.
+    public bool isDetectHit;    // Boolean pour savoir si on doit detecter le passage sur les points.
+    public TextMeshProUGUI title;   // Le titre afficher en haut du niveau
+    public bool isRandomPosition;   // A mettre a true pour generer la position des points.
+    public int maxLevelInASerie = 30;   // Nombre max de niveau dans une serie.
+    public GameObject nextLevelButton;  // Le bouton pour passer au prochain niveau.
 
-    private List<GameObject> listPoints;
-    private List<GameObject> lineManagerList;
+    private List<GameObject> listPoints;    // La liste de tout les points.
+    private List<GameObject> lineManagerList;   // La liste de tout les line managers.
     private LineManager currentLineManager;
     private List<Vector3> dataPositionCollected; // { x, y, time}
     private List<Vector2> pointPositionCollected; // { x, y}
-    private long current;
     private string currentPlayer;
     private int currentLevel;
     private string playerPrefLevelPath;
-    string savePath;
+    private string savePath;
     private bool isExerciseFinished;
     private string difficulty;
-    string difficultyFR = "facile";
-    string chiffreOuLettre;
+    private string difficultyFR = "facile";
+    private string chiffreOuLettre;
     private float size; // Taille des points
     private string isDrawingVisible;
     private bool isDrawingVisibleBool;  // Est ce qu'on affice les traits
     private bool isDrawing = false; // Booleen = vrai, si le le bouton est appuye pour dessiner
-    //private Time
+    private int current;
 
     // Use this for initialization
     void Start () {
@@ -209,19 +214,14 @@ public class GameManager : MonoBehaviour {
     private void GenerateLevelData()
     {
         Vector3 screenSize = Camera.main.ScreenToWorldPoint(new Vector3(Camera.main.pixelHeight, Camera.main.pixelWidth));
-        //Debug.Log("Sreen"+screenSize[0]);
-        //Debug.Log("Screen"+screenSize[1]);
 
         int height = (int)screenSize[0];
         int width = (int)screenSize[1];
         
-
-        //for (int i=0; i < pointPositions.Length; i++)
         if (!isRandomPosition)
         {
             string pointPath = Application.persistentDataPath + "/niveaux/" 
                 + difficultyFR + "/" + chiffreOuLettre + "/" + currentLevel + ".txt";
-            //string pointPath = "C:/Dev/Cassiopee-project/Neurotest/Assets/Levels/moyen/lettres/" + currentLevel + ".txt";
 
             pointPath = System.IO.Path.GetFullPath(pointPath);
             Debug.Log("Looking for data at: " + pointPath);
@@ -235,7 +235,6 @@ public class GameManager : MonoBehaviour {
                 pointPositions[i][0] = float.Parse(read[i, 0]);
                 pointPositions[i][1] = float.Parse(read[i, 1]);
             }
-            //pointPositions = new Vector2
         } else
         {
             int rand1 = 0;
