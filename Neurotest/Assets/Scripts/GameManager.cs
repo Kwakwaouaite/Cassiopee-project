@@ -44,6 +44,7 @@ public class GameManager : MonoBehaviour {
     private bool isDrawingVisibleBool;  // Est ce qu'on affice les traits
     private bool isDrawing = false; // Booleen = vrai, si le le bouton est appuye pour dessiner
     private int current;
+    private int nombreMaxPoint;
 
     // Use this for initialization
     void Start () {
@@ -228,13 +229,20 @@ public class GameManager : MonoBehaviour {
             
             string[,] read = CSVScript.ReadCSV(pointPath);
 
-            int sizePointArray = Math.Min(read.Length / 2, PlayerPrefs.GetInt(currentPlayer + "_option_numberPoints"));
+            nombreMaxPoint = read.Length / 2;
+            if (read[read.Length / 2 - 1, 0] == null) // Si il y a une ligne vide à la fin du fichier
+            {
+                nombreMaxPoint -= 1;
+            }
+                int sizePointArray = Math.Min(nombreMaxPoint, PlayerPrefs.GetInt(currentPlayer + "_option_numberPoints"));
 
             pointPositions = new Vector2[sizePointArray];
             for (int i = 0; i < sizePointArray; i++)
             {
-                if (read[i,0] == null)
+
+                if (read[i, 0] == null)
                     break;
+                    
                 pointPositions[i][0] = float.Parse(read[i, 0]);
                 pointPositions[i][1] = float.Parse(read[i, 1]);
             }
@@ -381,7 +389,8 @@ public class GameManager : MonoBehaviour {
 
 
 
-        string header = System.DateTime.Now.ToString() + "- Trait visible: " + isDrawingVisible + "- Taille: " + size*20 ;
+        string header = System.DateTime.Now.ToString() + " - Trait visible: " + isDrawingVisible 
+            + " - Taille: " + size*20 + " - Nombre de point: " + pointPositions.Length + "/" + nombreMaxPoint;
 
         CSVScript.SaveDataToCSV(savePath, dataPositionCollected, header: header);
 
