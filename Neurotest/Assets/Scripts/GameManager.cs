@@ -354,13 +354,13 @@ public class GameManager : MonoBehaviour {
     {
         isExerciseFinished = true;
         SaveData();
+        PlayerPrefs.SetInt(playerPrefLevelPath, currentLevel + 1);
         endMenu.SetActive(true);
     }
 
     public void GoToNextLevel()
     {
         Debug.Log("Niveau suivant");
-        PlayerPrefs.SetInt(playerPrefLevelPath, currentLevel + 1);
         SceneManager.LoadScene("Game", LoadSceneMode.Single);
     }
 
