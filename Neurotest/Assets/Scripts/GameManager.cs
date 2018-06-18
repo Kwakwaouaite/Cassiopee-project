@@ -227,8 +227,11 @@ public class GameManager : MonoBehaviour {
             Debug.Log("Looking for data at: " + pointPath);
             
             string[,] read = CSVScript.ReadCSV(pointPath);
-            pointPositions = new Vector2[read.Length / 2];
-            for (int i = 0; i < read.Length/2; i++)
+
+            int sizePointArray = Math.Min(read.Length / 2, PlayerPrefs.GetInt(currentPlayer + "_option_numberPoints"));
+
+            pointPositions = new Vector2[sizePointArray];
+            for (int i = 0; i < sizePointArray; i++)
             {
                 if (read[i,0] == null)
                     break;
