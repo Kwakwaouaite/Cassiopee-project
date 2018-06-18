@@ -97,6 +97,11 @@ public class MainMenu : MonoBehaviour {
                         Debug.Log("Writing : " + localPath);
                         CopyLevelToPersistent(localPath);
                     }
+                } else
+                {
+                    localPath = "/" + difficulty + "/";
+                    Debug.Log("Writing : " + localPath);
+                    CopyLevelToPersistent(localPath);
                 }
             }
         }
