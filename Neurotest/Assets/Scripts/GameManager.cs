@@ -327,7 +327,7 @@ public class GameManager : MonoBehaviour {
             {
                 if (i%2 == 0)
                 {
-                    newPoint.name = "Point " + ((i/2) + 1).ToString();
+                    newPoint.name = "Point " + (i/2).ToString();
                 } else
                 {
                     newPoint.name = "Point " + alphabet[(i-1)/ 2];
